@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.SecondTest" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.SecondTest" parent="Theme.AppCompat.Light">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_700</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/grey</item>
+        <item name="colorPrimaryVariant">@color/grey</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -35,7 +35,6 @@
         <!-- 状态栏颜色 -->
         <item name="android:statusBarColor">@color/white</item>
         <!--  状态栏字体颜色    -->
-        <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
     </style>
 

@@ -3,9 +3,7 @@ package com.example.homeworkhelper.utils;
 import android.os.Build;
 import androidx.annotation.RequiresApi;
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.DataInputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -33,7 +31,6 @@ public class APIUtils {
         sha256_HMAC.init(secret_key);
         byte[] array = sha256_HMAC.doFinal(data.getBytes("UTF-8"));
         return encoder.encodeToString(array);
-
     }
 
     private static String toHex(byte[] bytes) {
@@ -44,13 +41,13 @@ public class APIUtils {
         return sb.toString().toUpperCase();
     }
 
-    private static void request(byte[] image) throws Exception {
+    public static String request(String imageBytes) throws Exception {
         String server_url = "https://isi.daliapp.net/isi/api/v1/item/search";
         URL url = new URL(server_url);
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
-        connection.setConnectTimeout(30000);
-        connection.setReadTimeout(30000);
+        connection.setConnectTimeout(300000);
+        connection.setReadTimeout(300000);
         connection.setDoInput(true);
         connection.setDoOutput(true);
         TrustManager[] trustManagers = {
@@ -69,21 +66,21 @@ public class APIUtils {
         SSLSocketFactory sslSocketFactory = ctx.getSocketFactory();
         connection.setSSLSocketFactory(sslSocketFactory);
 
-        //这里写上图片解码
-        String imageBytes = encoder.encodeToString(image);
+
 
         String postData = "{\"base64Image\":\"" + imageBytes + "\"}";
         connection.setRequestProperty("charset", "utf-8");
         connection.setRequestProperty("Content-lenght", Integer.toString(postData.length()));
         connection.setRequestProperty("Content-Type", "application/json");
 
-        Long timestamp = System.currentTimeMillis();
+        Long timestamp = System.currentTimeMillis() / 1000;
         connection.setRequestProperty("x-isi-timestamp", timestamp.toString());
 
-
-        String step1 = timestamp.toString() + ":" + ((url.getQuery() != null) ? url.getQuery().getBytes() : "") + postData;
+        String step1 = timestamp.toString() + ":" + ((url.getQuery() != null) ? url.getQuery().getBytes() : "") + ":" + postData;
         String step2 = createSignature(step1, sk);
 
+        System.out.println("step1" + step1);
+        System.out.println("step2" + step2);
         connection.setRequestProperty("x-isi-signmethod", "hmacsha256");
         connection.setRequestProperty("x-isi-signature", ak + ":" + step2);
 
@@ -92,45 +89,41 @@ public class APIUtils {
             outputStream.write(postData.getBytes());
             outputStream.flush();
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
         if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            System.out.println(connection.getResponseCode());
             try {
-                InputStream inputStream = (InputStream) connection.getInputStream();
+                DataInputStream inputStream = new DataInputStream(connection.getInputStream());
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                 BufferedReader reader = new BufferedReader(inputStreamReader);
                 String output = reader.readLine();
-                System.out.println("chat" + output);
+                return output;
             } catch (Exception e) {
-                throw new Exception("Exception while push the notification  $exception.message");
+                e.printStackTrace();
             }
         }
+        return null;
     }
 
-    public static void test_api(byte[] src) {
+    public static void call_api(byte[] src) {
         try{
-            request(src);
+            //这里写上图片解码
+            String imageBytes = encoder.encodeToString(src);
+            request(imageBytes);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        String img_url = "C:/Users/wyh/Desktop/api_test.jpg";
-        InputStream in = null;
-        byte[] data = null;
-        // 读取图片字节数组
-        try {
-            in = new FileInputStream(img_url);
-            data = new byte[in.available()];
-            in.read(data);
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        request(data);
-    }
-
+//    public static void call_api(String src) {
+//        try{
+//            String imageBytes = encoder.enco
+//            request(src.getBytes());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 }

@@ -42,14 +42,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:text="数学" />
+                    android:text="数学"
+                    android:textColor="@color/light_blue"/>
 
                 <TextView
                     android:id="@+id/result_num"
                     style="?attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="三条记录" />
+                    android:text="三条记录"
+                    android:textColor="@color/light_blue"/>
             </LinearLayout>
 
         </LinearLayout>
