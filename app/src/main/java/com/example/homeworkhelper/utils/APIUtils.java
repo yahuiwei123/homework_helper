@@ -24,6 +24,7 @@ public class APIUtils {
     private static String ak = "74677f9c254d4d6ab2cc4795f6f2a916";
     private static String sk = "4dac0b3c7021497bb9d487bd0d14c0fc";
     private static final Base64.Encoder encoder = Base64.getEncoder();
+    private static String imageBytes;
 
     private static String createSignature(String data, String key) throws Exception {
         Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
@@ -41,7 +42,7 @@ public class APIUtils {
         return sb.toString().toUpperCase();
     }
 
-    public static String request(String imageBytes) throws Exception {
+    public static String request() throws Exception {
         String server_url = "https://isi.daliapp.net/isi/api/v1/item/search";
         URL url = new URL(server_url);
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
@@ -107,23 +108,29 @@ public class APIUtils {
         return null;
     }
 
+
+    /**
+     * 传入图片原始的字节数组
+     */
     public static void call_api(byte[] src) {
         try{
-            //这里写上图片解码
-            String imageBytes = encoder.encodeToString(src);
-            request(imageBytes);
+            imageBytes = encoder.encodeToString(src);
+            request();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-//    public static void call_api(String src) {
-//        try{
-//            String imageBytes = encoder.enco
-//            request(src.getBytes());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    /**
+     * 传入图片的Base64编码字符串
+     */
+    public static void call_api(String src) {
+        try{
+            imageBytes = src;
+            request();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
