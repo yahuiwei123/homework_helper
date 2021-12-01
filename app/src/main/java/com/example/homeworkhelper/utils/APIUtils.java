@@ -25,6 +25,7 @@ public class APIUtils {
     private static String sk = "4dac0b3c7021497bb9d487bd0d14c0fc";
     private static final Base64.Encoder encoder = Base64.getEncoder();
     private static String imageBytes;
+    private static String result;
 
     private static String createSignature(String data, String key) throws Exception {
         Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
@@ -42,7 +43,7 @@ public class APIUtils {
         return sb.toString().toUpperCase();
     }
 
-    public static String request() throws Exception {
+    public static void request() throws Exception {
         String server_url = "https://isi.daliapp.net/isi/api/v1/item/search";
         URL url = new URL(server_url);
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
@@ -100,37 +101,58 @@ public class APIUtils {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                 BufferedReader reader = new BufferedReader(inputStreamReader);
                 String output = reader.readLine();
-                return output;
+                result = output;
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return null;
     }
 
 
     /**
      * 传入图片原始的字节数组
      */
-    public static void call_api(byte[] src) {
+    public static String call_api(byte[] src) {
         try{
             imageBytes = encoder.encodeToString(src);
-            request();
+            new Thread(){
+                @Override
+                public void run() {
+                    try {
+                        request();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+            return result;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     /**
      * 传入图片的Base64编码字符串
      */
-    public static void call_api(String src) {
+    public static String call_api(String src) {
         try{
             imageBytes = src;
-            request();
+            new Thread(){
+                @Override
+                public void run() {
+                    try {
+                        request();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+            return result;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
 }
