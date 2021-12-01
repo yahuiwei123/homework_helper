@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mainPage.MainPageActivity"
+    >
+    <RelativeLayout
+        android:id="@+id/StartView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0033FF"
+        >
+        <Button
+            android:id="@+id/btnOpenCamera"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/circle_button"
+            android:text="拍照搜题" />
+
+        <Button
+            android:id="@+id/btnOpenAlbum"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:text="相册"
+            android:textColor="#00BFFF"
+            />
+    </RelativeLayout>
+    <!--得到照片后跳转的页面-->
+    <RelativeLayout
+        android:id="@+id/OperateView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <ImageView
+            android:id="@+id/ivShowPicture"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="80dp"
+            android:layout_marginTop="80dp"
+            ></ImageView>
+        <Button
+            android:id="@+id/btnO_crop"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:text="裁剪"
+            android:textColor="#00BFFF"
+            android:visibility="visible"
+            /> <!--隐藏了按钮且不占用原来的空间-->
+        <Button
+            android:id="@+id/btnO_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="80dp"
+            android:layout_alignParentTop="true"
+            android:text="确认"
+            android:textColor="#00BFFF"
+            android:visibility="visible"
+            />
+        <Button
+            android:id="@+id/btnO_back"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="返回"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="80dp"
+            />
+
+        <Button
+            android:id="@+id/btnO_revolve"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:text="旋转"
+            android:textColor="#00BFFF"
+            android:visibility="visible"
+            /> <!--隐藏了按钮且不占用原来的空间-->
+    </RelativeLayout>
+
+
+</RelativeLayout>
