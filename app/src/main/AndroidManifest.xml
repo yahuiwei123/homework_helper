@@ -41,6 +41,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.example.homeworkhelper.result.ResultDisplayActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Result">
+        </activity>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.homeworkhelper.fileprovider"

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".result.ResultDisplayActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:navigationIcon="@drawable/outline_west_24"
+        app:subtitleTextColor="@color/white"
+        app:titleMarginStart="90dp"
+        app:titleTextColor="@color/black">
+
+        <ImageView
+            android:id="@+id/toolbarImg"
+            android:layout_width="26.1dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:scaleType="centerCrop"
+            android:layout_gravity="right"
+            android:src="@drawable/img" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:id="@+id/search_scrollview"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/search_img"
+                    android:layout_width="328dp"
+                    android:layout_height="240dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/test"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:id="@+id/find_3_simi"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/find_3_simi"
+                    android:textAppearance="@style/find_3_simi"
+                    android:textSize="15sp"
+                    android:gravity="top" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    app:tabIndicatorColor="@color/transparent"
+                    app:tabMode="scrollable"
+                    app:tabRippleColor="@android:color/transparent" />
+
+                <com.example.homeworkhelper.result.MyViewPager
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1.0"
+                    android:padding="10dp"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="bottom"
+        android:padding="10dp"
+        android:background="@drawable/nav_border"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/add_mistake"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:src="@drawable/mistake_add_selector" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="错题"
+                android:textSize="10sp"
+                android:gravity="center"
+                />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:text="@string/search_next"
+            android:background="@drawable/gradient_search_button" />
+    </LinearLayout>
+
+
+</LinearLayout>

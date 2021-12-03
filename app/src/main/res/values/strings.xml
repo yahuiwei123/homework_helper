@@ -5,4 +5,7 @@
     <string name="tab_text_2">Tab 2</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--  下面是拍搜结果的-->
+    <string name="find_3_simi">找到3个近似结果</string>
+    <string name="search_next">再拍一题</string>
 </resources>

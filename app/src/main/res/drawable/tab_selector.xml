@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--按钮是否选择的选择器-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/tab_unselect" android:state_selected="false" />
+    <item android:drawable="@drawable/tab_select" android:state_selected="true" />
+</selector>

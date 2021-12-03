@@ -9,4 +9,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="light_blue">#44B2ED</color>
     <color name="grey">#989797</color>
+    <!--  下面是拍搜结果的-->
+    <color name="blackText">#3F4E73</color>
+    <color name="selectTab">#418DFD</color>
+    <color name="unselectTab">#F6F6F9</color>
+    <color name="transparent">#00000000</color>
+    <color name="boldBlack">#263456</color>
 </resources>
