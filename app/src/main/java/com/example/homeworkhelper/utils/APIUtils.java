@@ -25,11 +25,8 @@ public class APIUtils {
     private static String sk = "4dac0b3c7021497bb9d487bd0d14c0fc";
     private static final Base64.Encoder encoder = Base64.getEncoder();
     private static String imageBytes;
-<<<<<<< Updated upstream
     private static String result;
-=======
     private static String output;
->>>>>>> Stashed changes
 
     private static String createSignature(String data, String key) throws Exception {
         Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
@@ -103,12 +100,9 @@ public class APIUtils {
                 DataInputStream inputStream = new DataInputStream(connection.getInputStream());
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                 BufferedReader reader = new BufferedReader(inputStreamReader);
-<<<<<<< Updated upstream
                 String output = reader.readLine();
                 result = output;
-=======
                 output = reader.readLine();
->>>>>>> Stashed changes
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -132,18 +126,11 @@ public class APIUtils {
                     }
                 }
             }.start();
-<<<<<<< Updated upstream
             return result;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
-=======
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return output;
->>>>>>> Stashed changes
     }
 
     /**
@@ -162,18 +149,11 @@ public class APIUtils {
                     }
                 }
             }.start();
-<<<<<<< Updated upstream
             return result;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
-=======
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return output;
->>>>>>> Stashed changes
     }
 
 }
