@@ -45,8 +45,7 @@ public class ResultDisplayActivity extends AppCompatActivity {
         //String msg = getApiResult();
 //        test();
         LogRecord logRecord = JsonUtils.parseJson(msg);
-        ArrayList<Item> itemArrayList = logRecord.getItemArrayList();   // logrecord肯可能是null
-
+        ArrayList<Item> itemArrayList = logRecord.getItemArrayList();   // logrecord可能是null
         // 错题本选择
         mistakeAdd.setOnClickListener(v -> mistakeAdd.setSelected(!mistakeAdd.isSelected()));
 
