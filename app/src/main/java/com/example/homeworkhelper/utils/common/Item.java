@@ -2,18 +2,18 @@ package com.example.homeworkhelper.utils.common;
 
 public class Item {
     private String itemId;
-    private String contentURL;   // 搜索结果图片
-    private String answerURL;   // 答案图片
-    private String hintURL;  // 解析图片
-    private String remarkURL;    // 点评
+    private String content;   // 搜索结果图片
+    private String answer;   // 答案图片
+    private String hint;  // 解析图片
+    private String remark;    // 点评
     private int subject;    // 题目学科
 
-    public Item(String itemId, String contentURL, String answerURL, String hintURL, String remarkURL, int subject) {
+    public Item(String itemId, String content, String answer, String hint, String remark, int subject) {
         this.itemId = itemId;
-        this.contentURL = contentURL;
-        this.answerURL = answerURL;
-        this.hintURL = hintURL;
-        this.remarkURL = remarkURL;
+        this.content = content;
+        this.answer = answer;
+        this.hint = hint;
+        this.remark = remark;
         this.subject = subject;
     }
 
@@ -25,36 +25,36 @@ public class Item {
         this.itemId = itemId;
     }
 
-    public String getContentURL() {
-        return contentURL;
+    public String getContent() {
+        return content;
     }
 
-    public void setContentURL(String contentURL) {
-        this.contentURL = contentURL;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public String getAnswerURL() {
-        return answerURL;
+    public String getAnswer() {
+        return answer;
     }
 
-    public void setAnswerURL(String answerURL) {
-        this.answerURL = answerURL;
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
-    public String getHintURL() {
-        return hintURL;
+    public String gethint() {
+        return hint;
     }
 
-    public void setHintURL(String hintURL) {
-        this.hintURL = hintURL;
+    public void sethint(String hint) {
+        this.hint = hint;
     }
 
-    public String getRemarkURL() {
-        return remarkURL;
+    public String getremark() {
+        return remark;
     }
 
-    public void setRemarkURL(String remarkURL) {
-        this.remarkURL = remarkURL;
+    public void setremark(String remark) {
+        this.remark = remark;
     }
 
     public int getSubject() {

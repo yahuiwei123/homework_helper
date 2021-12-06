@@ -1,5 +1,6 @@
 package com.example.homeworkhelper.utils;
 
+import com.example.homeworkhelper.utils.common.Img;
 import com.example.homeworkhelper.utils.common.Item;
 import com.example.homeworkhelper.utils.common.LogRecord;
 
@@ -7,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
@@ -32,16 +34,7 @@ public class JsonUtils {
                 String hint = item.get("hint").toString();
                 String remark = item.get("remark").toString();
                 int subject = Integer.parseInt(item.get("subject").toString());
-                Document contentHtml = Jsoup.parse(content);
-                Elements contentSrc = contentHtml.getElementsByTag("img");
-                Elements answerSrc = contentHtml.getElementsByTag("img");
-                Elements hintSrc = contentHtml.getElementsByTag("img");
-                Elements remarkSrc = contentHtml.getElementsByTag("img");
-                String contentURL = contentSrc.get(0).attr("src");
-                String answerURL = answerSrc.get(0).attr("src");
-                String hintURL = hintSrc.get(0).attr("src");
-                String remarkURL = remarkSrc.get(0).attr("src");
-                itemArrayList.add(new Item(itemId, contentURL, answerURL, hintURL, remarkURL, subject));
+                itemArrayList.add(new Item(itemId, content, answer, hint, remark, subject));
             }
             return new LogRecord(itemArrayList, logId);
         } catch (Exception e) {
@@ -50,4 +43,16 @@ public class JsonUtils {
         }
     }
 
+    public static Img parseHtml(String html){
+        if (html.isEmpty()){
+            return null;
+        }
+        Document contentHtml = Jsoup.parse(html);
+        Elements imgSrc = contentHtml.getElementsByTag("img");
+        Element element = imgSrc.get(0);
+        String src = element.attr("src");
+        String width = element.attr("width");
+        String height = element.attr("height");
+        return new Img(src,Integer.parseInt(width),Integer.parseInt(height));
+    }
 }

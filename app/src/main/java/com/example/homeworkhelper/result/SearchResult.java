@@ -4,11 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.homeworkhelper.R;
+import com.example.homeworkhelper.utils.JsonUtils;
+import com.example.homeworkhelper.utils.common.Img;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,19 +25,26 @@ public class SearchResult extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private String title;
-    private String reference;
-    private String analysis;
     private TextView textView;
+    private Img contentImg;
+    private Img answerImg;
+    private Img hintImg;
+    private Img remarkImg;
+
+    private ImageView contentImgView;
+    private ImageView answerImgView;
+    private ImageView hintImgView;
+    private ImageView remarkImgView;
 
     public SearchResult() {
         // Required empty public constructor
     }
 
-    public SearchResult(String title, String reference, String analysis) {
-        this.title = title;
-        this.reference = reference;
-        this.analysis = analysis;
+    public SearchResult(Img contentImg, Img answerImg, Img hintImg, Img remarkImg) {
+        this.contentImg = contentImg;
+        this.answerImg = answerImg;
+        this.hintImg = hintImg;
+        this.remarkImg = remarkImg;
     }
 
     /**
@@ -64,20 +75,46 @@ public class SearchResult extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_search_result, container, false);
-        textView = view.findViewById(R.id.title);
-        textView.setText("题目");
-        textView = view.findViewById(R.id.title_content);
-        textView.setText(title);
-        textView = view.findViewById(R.id.reference);
-        textView.setText("答案");
-        textView = view.findViewById(R.id.reference_content);
-        textView.setText(reference);
-        textView = view.findViewById(R.id.analysis);
-        textView.setText("解析");
-        textView = view.findViewById(R.id.analysis_content);
-        textView.setText(analysis);
+        View view = inflater.inflate(R.layout.fragment_search_result, container, false);
+        contentImgView = view.findViewById(R.id.content_img);
+        answerImgView = view.findViewById(R.id.answer_img);
+        hintImgView = view.findViewById(R.id.hint_img);
+        remarkImgView = view.findViewById(R.id.remark_img);
 
+        textView = view.findViewById(R.id.content);
+        textView.setText("题目");
+
+        textView = view.findViewById(R.id.answer);
+        textView.setText("答案");
+
+        textView = view.findViewById(R.id.hint);
+        textView.setText("解析");
+
+        textView = view.findViewById(R.id.remark);
+        textView.setText("点评");
+        if (contentImg != null) {
+            contentImgView.getLayoutParams().width = contentImg.getWidth() * 2;
+            contentImgView.getLayoutParams().height = contentImg.getHeight() * 2;
+            Glide.with(this).load(contentImg.getSrc()).into(contentImgView);
+        }
+
+        if (answerImg != null) {
+            answerImgView.getLayoutParams().width = answerImg.getWidth() * 2;
+            answerImgView.getLayoutParams().height = answerImg.getHeight() * 2;
+            Glide.with(this).load(answerImg.getSrc()).into(answerImgView);
+        }
+
+        if (hintImg != null) {
+            hintImgView.getLayoutParams().width = hintImg.getWidth() * 2;
+            hintImgView.getLayoutParams().height = hintImg.getHeight() * 2;
+            Glide.with(this).load(hintImg.getSrc()).into(hintImgView);
+        }
+
+        if (remarkImg != null) {
+            remarkImgView.getLayoutParams().width = remarkImg.getWidth() * 2;
+            remarkImgView.getLayoutParams().height = remarkImg.getHeight() * 2;
+            Glide.with(this).load(remarkImg.getSrc()).into(remarkImgView);
+        }
 
         return view;
     }
