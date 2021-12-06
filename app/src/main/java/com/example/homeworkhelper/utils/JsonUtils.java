@@ -44,17 +44,6 @@ public class JsonUtils {
     }
 
     public static Img parseHtml(String html){
-        Document contentHtml = Jsoup.parse(html);
-        Elements imgSrc = contentHtml.getElementsByTag("img");
-        Element element = imgSrc.get(0);
-        System.out.println(element);
-        String src = element.attr("src");
-        String width = element.attr("width");
-        String height = element.attr("height");
-        return new Img(src,Integer.parseInt(width),Integer.parseInt(height));
-    }
-
-    public static Img parseHtml(String html){
         if (html.isEmpty()){
             return null;
         }
