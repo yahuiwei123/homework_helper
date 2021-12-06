@@ -20,8 +20,6 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 
 import com.example.homeworkhelper.R;
-import com.example.homeworkhelper.history.HistoryDisplayActivity;
-import com.example.homeworkhelper.result.ResultDisplayActivity;
 import com.example.homeworkhelper.utils.APIUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -127,15 +125,7 @@ public class MainPageActivity extends Activity implements View.OnClickListener {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void confirmPic() {
         getImgBase64(ivShowPicture);
-        Intent intenttrans = new Intent();
-        intenttrans.setClass(MainPageActivity.this, ResultDisplayActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("APIresult",APIUtils.call_api(base64));    //递交给历史记录页面api的返回结果
-//        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxx");
-//        System.out.println(APIUtils.call_api(base64));
-        bundle.putString("Bitmap",base64);                          //将用户自己拍到的图片递交给历史记录页面
-        intenttrans.putExtras(bundle);
-        startActivity(intenttrans);
+        System.out.println(APIUtils.call_api(base64));
     }
 
     //返回拍照页面
