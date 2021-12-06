@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.homeworkhelper.history.request.HistoryRequestUtils;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.Nullable;
@@ -21,10 +22,13 @@ import com.example.homeworkhelper.databinding.ActivityHistoryDisplayBinding;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Response;
+
 public class HistoryDisplayActivity extends AppCompatActivity {
 
     private ActivityHistoryDisplayBinding binding;
     private ViewPager viewPager;
+    private HistoryRequestUtils utils = new HistoryRequestUtils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +72,16 @@ public class HistoryDisplayActivity extends AppCompatActivity {
 
         //页面的数据
         List<RecordData> recordDataList = new ArrayList<>();
-        RecordData recordData;
-        for (int i = 0; i < 4; i++) {
-            recordData = new RecordData(null, "数学", "3");
-            recordDataList.add(recordData);
-        }
+
+        Response response = utils.getAllHistory("http://10.0.2.2:8888/helper/history/allHistory", "1");
+
+//        try {
+//            System.out.println();
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+
+
 
         HistoryFragment fragment = new HistoryFragment(recordDataList);
         for (int i = 0; i < tabName.size(); i++) {
