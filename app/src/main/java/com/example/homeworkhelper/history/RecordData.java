@@ -2,23 +2,25 @@ package com.example.homeworkhelper.history;
 
 import android.graphics.Bitmap;
 
+import java.net.URL;
+
 public class RecordData {
-    private Bitmap bitmap;
+    private String url;
     private String className;
     private String resultNum;
 
-    public RecordData(Bitmap bitmap, String className, String resultNum) {
-        this.bitmap = bitmap;
+    public RecordData(String  url, String className, String resultNum) {
+        this.url = url;
         this.className = className;
         this.resultNum = resultNum;
     }
 
-    public Bitmap getBitmap() {
-        return bitmap;
+    public String  getUrl() {
+        return url;
     }
 
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getClassName() {
