@@ -21,6 +21,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textSize="15dp"
+            android:textColor="@color/grey"
             android:text="没有更多内容了">
         </TextView>
     </LinearLayout>
