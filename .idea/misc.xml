@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/homework_helper/app/src/main/res/drawable/circle_button.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/homework_helper/app/src/main/res/drawable/gradient_search_button.xml" value="0.23489583333333333" />
+        <entry key="..\:/AndroidStudioProjects/homework_helper/app/src/main/res/layout/activity_mainpage.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/homework_helper/app/src/main/res/layout/fragment_search_result.xml" value="0.1" />
         <entry key="..\:/Users/DELL/Desktop/homework_helper/app/src/main/res/drawable/circle_button.xml" value="0.15989583333333332" />
         <entry key="..\:/Users/DELL/Desktop/homework_helper/app/src/main/res/layout/activity_mainpage.xml" value="0.14375" />
         <entry key="..\:/Users/wyh/AndroidStudioProjects/HomeworkHelper/app/src/main/res/layout/activity_history_display.xml" value="0.11917098445595854" />

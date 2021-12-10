@@ -116,7 +116,7 @@ public class APIUtils {
     public static String call_api(byte[] src) {
         try{
             imageBytes = encoder.encodeToString(src);
-            new Thread(){
+            Thread t = new Thread(){
                 @Override
                 public void run() {
                     try {
@@ -125,7 +125,9 @@ public class APIUtils {
                         e.printStackTrace();
                     }
                 }
-            }.start();
+            };
+            t.start();
+            t.join();
             return result;
         } catch (Exception e) {
             e.printStackTrace();
@@ -139,7 +141,7 @@ public class APIUtils {
     public static String call_api(String src) {
         try{
             imageBytes = src;
-            new Thread(){
+            Thread t = new Thread(){
                 @Override
                 public void run() {
                     try {
@@ -148,7 +150,9 @@ public class APIUtils {
                         e.printStackTrace();
                     }
                 }
-            }.start();
+            };
+            t.start();
+            t.join();
             return result;
         } catch (Exception e) {
             e.printStackTrace();
