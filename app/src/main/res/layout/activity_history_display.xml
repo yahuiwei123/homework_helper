@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="com.example.homeworkhelper.history.HistoryDisplayActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -46,18 +46,18 @@
 
         </RelativeLayout>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="wrap_content"
-            app:tabIndicatorColor="@color/blue"
-            android:layout_height="wrap_content"
-            app:tabRippleColor="@color/transparent"
-            app:tabIndicator="@drawable/history_tab"
-            app:tabSelectedTextColor="@color/blue"
-            app:tabTextAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:tabTextColor="@color/black"/>
-    </com.google.android.material.appbar.AppBarLayout>
 
+    </androidx.appcompat.widget.Toolbar>
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="wrap_content"
+        app:tabIndicatorColor="@color/blue"
+        android:layout_height="wrap_content"
+        app:tabRippleColor="@color/transparent"
+        app:tabIndicator="@drawable/history_tab"
+        app:tabSelectedTextColor="@color/blue"
+        app:tabTextAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:tabTextColor="@color/black"/>
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
