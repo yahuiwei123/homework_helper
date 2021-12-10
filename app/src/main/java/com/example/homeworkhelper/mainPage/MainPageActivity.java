@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -18,8 +19,10 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 
 import com.example.homeworkhelper.R;
+import com.example.homeworkhelper.result.ResultDisplayActivity;
 import com.example.homeworkhelper.utils.APIUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -46,6 +49,8 @@ public class MainPageActivity extends Activity implements View.OnClickListener {
     private static Uri Turi;        //获取图片的URI
     private final int REQUEST_GPS = 1;          //动态权限获取的识别码
     private static String base64 = null;
+    private Uri photoUri = null;
+    private Uri photoOutputUri = null; // 图片最终的输出文件的 Uri
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +113,7 @@ public class MainPageActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.btnO_crop:
                 // 对图像进行裁剪处理
-                cropPic(Turi);
+                cropPhoto(photoUri);
                 break;
             case R.id.btnO_back:
                 // 返回拍照页
@@ -125,7 +130,15 @@ public class MainPageActivity extends Activity implements View.OnClickListener {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void confirmPic() {
         getImgBase64(ivShowPicture);
+        Intent intenttrans = new Intent();
+        intenttrans.setClass(MainPageActivity.this, ResultDisplayActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("APIresult",APIUtils.call_api(base64));    //递交给历史记录页面api的返回结果
         System.out.println(APIUtils.call_api(base64));
+
+        bundle.putString("Bitmap",base64);                          //将用户自己拍到的图片递交给历史记录页面
+        intenttrans.putExtras(bundle);
+        startActivity(intenttrans);
     }
 
     //返回拍照页面
@@ -137,8 +150,32 @@ public class MainPageActivity extends Activity implements View.OnClickListener {
 
     // 拍照并显示图片
     private void openCamera_1() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);// 启动系统相机
-        startActivityForResult(intent, REQUEST_CAMERA_1);
+        File file = new File(getExternalCacheDir(), "image.jpg");
+        try {
+            if(file.exists()) {
+                file.delete();
+            }
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        /**
+         * 因 Android 7.0 开始，不能使用 file:// 类型的 Uri 访问跨应用文件，否则报异常，
+         * 因此我们这里需要使用内容提供器，FileProvider 是 ContentProvider 的一个子类，
+         * 我们可以轻松的使用 FileProvider 来在不同程序之间分享数据(相对于 ContentProvider 来说)
+         */
+        if(Build.VERSION.SDK_INT >= 24) {
+            photoUri = FileProvider.getUriForFile(this, "com.example.homeworkhelper.fileprovider", file);
+        } else {
+            photoUri = Uri.fromFile(file); // Android 7.0 以前使用原来的方法来获取文件的 Uri
+        }
+        // 打开系统相机的 Action，等同于："android.media.action.IMAGE_CAPTURE"
+        Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // 设置拍照所得照片的输出目录
+        takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+        startActivityForResult(takePhotoIntent,REQUEST_CAMERA_1);
+//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);// 启动系统相机
+//        startActivityForResult(intent, REQUEST_CAMERA_1);
     }
 
     //调用系统相册显示图片
@@ -155,25 +192,7 @@ public class MainPageActivity extends Activity implements View.OnClickListener {
         REVOLVE_DEGREE+=90;
     }
 
-    //裁剪照片方法
-    private void cropPic(Uri uri) {
-        // 调用系统中自带的图片剪裁
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
-        // 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
-        intent.putExtra("crop", "true");
-        // aspectX aspectY 是宽高的比例
-        //注意：设备XY设定为1:1的时候展示框为圆形
-        intent.putExtra("aspectX", 2);
-        intent.putExtra("aspectY", 1);
-        // outputX outputY 是裁剪图片宽高
-        intent.putExtra("outputX", 150);
-        intent.putExtra("outputY", 150);
-        // 返回裁剪后的数据
-        intent.putExtra("return-data", true);
-        startActivityForResult(intent, REQUEST_Crop_3);
-    }
-
+    //保存图片
     public boolean saveImageToGallery(Bitmap bmp) {
         // 首先保存图片
         String storePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "title";
@@ -199,6 +218,7 @@ public class MainPageActivity extends Activity implements View.OnClickListener {
 
             //保存图片后发送广播通知更新数据库
             Uri uri = Uri.fromFile(file);
+            System.out.println(uri);
             sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));      //系统刷新相册
             if (isSuccess) {
                 return true;
@@ -221,27 +241,36 @@ public class MainPageActivity extends Activity implements View.OnClickListener {
         base64 = image;
     }
 
+    private void cropPhoto(Uri inputUri) {
+        // 调用系统裁剪图片的 Action
+        Intent cropPhotoIntent = new Intent("com.android.camera.action.CROP");
+        // 设置数据Uri 和类型
+        cropPhotoIntent.setDataAndType(inputUri, "image/*");
+        // 授权应用读取 Uri，这一步要有，不然裁剪程序会崩溃
+        cropPhotoIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        // 设置图片的最终输出目录
+        cropPhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                photoOutputUri = Uri.parse("file:////sdcard/image_output.jpg"));
+        startActivityForResult(cropPhotoIntent, REQUEST_Crop_3);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) { // 如果返回数据
             if (requestCode == REQUEST_CAMERA_1) { // 判断请求码是否为REQUEST_CAMERA,如果是代表是这个页面传过去的，需要进行获取
-                Bundle bundle = data.getExtras(); // 从data中取出传递回来缩略图的信息，图片质量差，适合传递小图片
-                Bitmap bitmap = (Bitmap) bundle.get("data"); // 将data中的信息流解析为Bitmap类型
-                System.out.println(saveImageToGallery(bitmap));
-                openAlbum_2();
+                cropPhoto(photoUri);
             }
             else if(requestCode == REQUEST_ALBUM_2){
-                Turi = data.getData();           //获得路径
-                cropPic(Turi);                   //直接进行裁剪处理
+                photoUri = data.getData();           //获得路径
+                cropPhoto(photoUri);                   //直接进行裁剪处理
             }
             else if(requestCode == REQUEST_Crop_3){
-                Bundle bundle = data.getExtras();
-                Bitmap bitmap = (Bitmap) bundle.getParcelable("data");
+                File file = new File(photoOutputUri.getPath());
+                Bitmap bitmap = BitmapFactory.decodeFile(photoOutputUri.getPath());
+                file.delete();
                 ivShowPicture.setImageBitmap(bitmap);
-//                getImgBase64(ivShowPicture);
-//                System.out.println(APIUtils.call_api(base64));
                 StartView.setVisibility(View.GONE);
                 OperateView.setVisibility(View.VISIBLE);
             }

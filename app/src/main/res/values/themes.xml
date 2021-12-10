@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.SecondTest" parent="Theme.AppCompat.Light">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/grey</item>
-        <item name="colorPrimaryVariant">@color/grey</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -36,7 +36,28 @@
         <item name="android:statusBarColor">@color/white</item>
         <!--  状态栏字体颜色    -->
         <!-- Customize your theme here. -->
-    </style>
 
+    </style>
+    <style name="PhoneText_id">
+
+        <item name="android:textSize">
+            16sp
+        </item>
+
+        <item name="android:textColor">
+            #263456
+        </item>
+
+    </style>
+    <style name="LoginTextView_id">
+        <item name="android:textSize">
+            16sp
+        </item>
+
+        <item name="android:textColor">
+            #FFFFFF
+        </item>
+
+    </style>
     <style name="Theme.SecondTest.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

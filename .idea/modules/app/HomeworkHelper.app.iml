@@ -67,6 +67,9 @@
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-common:2.1.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.collection:collection:1.1.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation:1.2.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.mob:MobToolsMCFP:2021.1202.1642" level="project" />
+    <orderEntry type="library" name="Gradle: com.mob:MobCommonsMCFP:2021.1202.1642" level="project" />
+    <orderEntry type="library" name="Gradle: com.mob:MobGUI:2019.0306.1850" level="project" />
     <orderEntry type="library" name="Gradle: androidx.constraintlayout:constraintlayout-solver:2.0.4" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.4.1" level="project" />
@@ -126,6 +129,9 @@
     <orderEntry type="library" name="Gradle: androidx.localbroadcastmanager:localbroadcastmanager:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.print:print:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.interpolator:interpolator:1.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.mob:MobGuardMCFP:2021.1202.1642@aar" level="project" />
+    <orderEntry type="library" name="Gradle: cn.smssdk:SMSSDK:3.7.1@aar" level="project" />
+    <orderEntry type="library" name="Gradle: cn.smssdk:ShortMessageSDKGUI:3.7.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation-experimental:1.0.0@aar" level="project" />
   </component>
 </module>

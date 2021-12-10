@@ -61,4 +61,10 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">#263456</item>
     </style>
+
+    <style name="toolbar">
+        <item name="android:colorBackground">@color/white</item>
+
+    </style>
+
 </resources>

@@ -8,4 +8,6 @@
     <!--  下面是拍搜结果的-->
     <string name="find_3_simi">找到3个近似结果</string>
     <string name="search_next">再拍一题</string>
+    <string name="userread">为世界之光，为世界之光。</string>
+    <string name="privacy">我们使用了第三方（上海游昆信息技术有限公司，以下称“MobTech”）MobTech SDK 服务为您提供【 】功能。为了顺利实现该功能，您需要授权MobTech SDK提供对应的服务;在您授权后，MobTech将收集您相关的个人信息。关于MobTech所收集的信息种类、用途、个人信息保护的规则及退出机制等，详见MobTech官网（www.mob.com） 上的隐私政策 （www.mob.com/about/policy） 条款。</string>
 </resources>

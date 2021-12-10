@@ -47,21 +47,10 @@ public class HistoryDisplayActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
 
         //设置返回按钮和删除记录按钮
-        Button back = binding.recordBack;
-        Button del = binding.recordDel;
-        back.setOnClickListener(new View.OnClickListener() {
+        binding.historyToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //返回上一个界面
-                Toast.makeText(HistoryDisplayActivity.this, "返回", Toast.LENGTH_LONG).show();
-            }
-        });
 
-        del.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //删除历史记录
-                Toast.makeText(HistoryDisplayActivity.this, "删除", Toast.LENGTH_LONG).show();
             }
         });
     }
