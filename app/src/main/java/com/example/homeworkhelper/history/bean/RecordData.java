@@ -8,9 +8,45 @@ public class RecordData {
     private String u_id;
     private String request_id;
     private String search_id;
-//    private String search_image;
-    private String ques_class;
-    private String ans_num;
+    private int ques_class;
+    private int ans_num;
+    private int dev_id;
+    private String search_image;
+    private String items;
+
+    public int getDev_id() {
+        return dev_id;
+    }
+
+    public void setDev_id(int dev_id) {
+        this.dev_id = dev_id;
+    }
+
+    public String getSearch_image() {
+        return search_image;
+    }
+
+    public void setSearch_image(String search_image) {
+        this.search_image = search_image;
+    }
+
+    public String getItems() {
+        return items;
+    }
+
+    public void setItems(String items) {
+        this.items = items;
+    }
+
+    public String getSearch_time() {
+        return search_time;
+    }
+
+    public void setSearch_time(String search_time) {
+        this.search_time = search_time;
+    }
+
+    private String search_time;
 
     public String getU_id() {
         return u_id;
@@ -35,27 +71,20 @@ public class RecordData {
     public void setSearch_id(String search_id) {
         this.search_id = search_id;
     }
-//    public String getSearch_image() {
-//        return search_image;
-//    }
-//
-//    public void setSearch_image(String search_image) {
-//        this.search_image = search_image;
-//    }
 
-    public String getQues_class() {
+    public int getQues_class() {
         return ques_class;
     }
 
-    public void setQues_class(String ques_class) {
+    public void setQues_class(int ques_class) {
         this.ques_class = ques_class;
     }
 
-    public String getAns_num() {
+    public int getAns_num() {
         return ans_num;
     }
 
-    public void setAns_num(String ans_num) {
+    public void setAns_num(int ans_num) {
         this.ans_num = ans_num;
     }
 }

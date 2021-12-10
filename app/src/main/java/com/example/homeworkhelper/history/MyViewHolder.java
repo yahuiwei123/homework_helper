@@ -15,6 +15,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     private TextView classTextView;
     private TextView numTextView;
     private View contentView;
+    private String[] className = {"语文", "数学", "英语"};
 
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -26,7 +27,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
 
     public void onBind(int position, RecordData data) {
 //        imageView.setImageBitmap(data.getBitmap());
-        classTextView.setText(data.getQues_class());
+        classTextView.setText(className[data.getQues_class() - 1]);
         numTextView.setText("共" + data.getAns_num() + "条记录");
     }
 
