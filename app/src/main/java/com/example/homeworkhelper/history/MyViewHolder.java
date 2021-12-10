@@ -7,8 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.homeworkhelper.R;
+import com.example.homeworkhelper.history.bean.RecordData;
 
 public class MyViewHolder extends RecyclerView.ViewHolder {
     private ImageView imageView;
@@ -26,9 +26,8 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
 
     public void onBind(int position, RecordData data) {
 //        imageView.setImageBitmap(data.getBitmap());
-        Glide.with(contentView).load(data.getUrl()).into(imageView);
-        classTextView.setText(data.getClassName());
-        numTextView.setText("共" + data.getResultNum() + "条记录");
+        classTextView.setText(data.getQues_class());
+        numTextView.setText("共" + data.getAns_num() + "条记录");
     }
 
     public void setOnClickListener(View.OnClickListener listener) {

@@ -1,6 +1,6 @@
 package com.example.homeworkhelper.history.request;
 
-import com.example.homeworkhelper.history.bean.TestBean;
+import com.example.homeworkhelper.history.bean.RecordData;
 import com.example.homeworkhelper.utils.TransferUtils;
 
 import java.io.IOException;
@@ -10,30 +10,37 @@ import okhttp3.Call;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 
 public class HistoryRequestUtils {
 
-    private Response response;
-    public ArrayList<TestBean> getAllHistory(String url, String u_id) {
+    private String responseResult;
+    public ArrayList<RecordData> getAllHistory(String url, String u_id) {
         OkHttpClient okHttpClient = new OkHttpClient();
         Request.Builder request = new Request.Builder();
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addQueryParameter("u_id", u_id);
         request.url(urlBuilder.build());
         Call call = okHttpClient.newCall(request.build());
-        new Thread() {
+
+        Thread t = new Thread() {
             @Override
             public void run() {
                 try {
-                    response = call.execute();
+                    responseResult = call.execute().body().string();
                 } catch (IOException e) {
-                    response = null;
+                    responseResult = null;
                     e.printStackTrace();
                 }
             }
-        }.start();
-        TransferUtils utils = new TransferUtils(response, TestBean.class);
+        };
+        try {
+            t.start();
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        TransferUtils utils = new TransferUtils(responseResult, RecordData.class);
         return utils.getResult();
     }
 //

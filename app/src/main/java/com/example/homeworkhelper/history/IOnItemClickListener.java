@@ -1,20 +1,16 @@
 package com.example.homeworkhelper.history;
 
-import android.os.Build;
+import android.app.Activity;
+import android.content.Intent;
 
-import androidx.annotation.RequiresApi;
-
-import com.example.homeworkhelper.utils.APIUtils;
-import com.example.homeworkhelper.utils.TestOkHttp;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import com.example.homeworkhelper.history.bean.RecordData;
+import com.example.homeworkhelper.result.ResultDisplayActivity;
 
 public class IOnItemClickListener {
 
-    public void onItemClick(int position, RecordData recordData){
-
+    public void onItemClick(int position, RecordData recordData, Activity activity){
+        Intent intent = new Intent(activity, ResultDisplayActivity.class);
+        activity.startActivity(intent);
     }
 
 }

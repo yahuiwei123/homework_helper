@@ -13,7 +13,7 @@ public class TransferUtils {
     private Integer code;
     private Boolean success;
     private String message;
-    private ArrayList result;
+    private ArrayList result = new ArrayList();
     /**
      * 创建该对象时直接调用如下构造器，可以直接将response
      * 解析出来，通过getResult方法可以将数据库返回的数据list拿到
@@ -23,8 +23,8 @@ public class TransferUtils {
      * getSuccess方法返回请求成功与否信息
      * getMessage方法同上
      */
-    public TransferUtils(Response response, Class dataClass) {
-        parseToObject(response, dataClass);
+    public TransferUtils(String responseResult, Class dataClass) {
+        parseToObject(responseResult, dataClass);
     }
 
     public Integer getCode() {
@@ -43,15 +43,15 @@ public class TransferUtils {
         return result;
     }
 
-    public void parseToObject(Response response, Class objClass){
+    public void parseToObject(String responseResult, Class objClass){
         Gson gson = new Gson();
         try{
-            String responseData = response.body().string();
-            JSONObject jsonObject = new JSONObject(responseData);
+            JSONObject jsonObject = new JSONObject(responseResult);
             code = (Integer) jsonObject.get("code");
             success = (Boolean) jsonObject.get("success");
             message = (String) jsonObject.get("message");
             JSONArray dataList = (JSONArray) jsonObject.get("data");
+            System.out.println(code);
             for (int i = 0; i < dataList.length(); i++) {
                 JSONObject data = dataList.getJSONObject(i);
                 Object finalData = gson.fromJson(String.valueOf(data), objClass);

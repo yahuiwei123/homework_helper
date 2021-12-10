@@ -21,6 +21,10 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.SecondTest.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity
@@ -38,10 +42,6 @@
             android:name="com.example.homeworkhelper.result.ResultDisplayActivity"
             android:exported="true"
             android:theme="@style/Theme.Result">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <provider
             android:name="androidx.core.content.FileProvider"

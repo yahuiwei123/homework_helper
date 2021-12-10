@@ -1,5 +1,6 @@
 package com.example.homeworkhelper.history;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 
 
 import com.example.homeworkhelper.R;
+import com.example.homeworkhelper.history.bean.RecordData;
 
 import java.util.List;
 
@@ -24,6 +26,7 @@ public class HistoryFragment extends Fragment {
 
     private List<RecordData> recordDataList;
     private RecyclerView recyclerView;
+    private Activity activity;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,8 +41,9 @@ public class HistoryFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public HistoryFragment(List<RecordData> recordDataList) {
+    public HistoryFragment(List<RecordData> recordDataList, Activity activity) {
         this.recordDataList = recordDataList;
+        this.activity = activity;
     }
 
     /**
@@ -78,7 +82,8 @@ public class HistoryFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rv);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(HistoryFragment.this.getContext()));
-        MyDataAdapter adapter = new MyDataAdapter(recordDataList, new IOnItemClickListener());
+
+        MyDataAdapter adapter = new MyDataAdapter(recordDataList, new IOnItemClickListener(), activity);
         recyclerView.setAdapter(adapter);
 
         //获取tab名
