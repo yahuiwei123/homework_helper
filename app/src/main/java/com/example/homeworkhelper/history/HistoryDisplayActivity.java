@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.homeworkhelper.history.bean.RecordData;
 import com.example.homeworkhelper.history.request.HistoryRequestUtils;
 import com.google.android.material.tabs.TabLayout;
 
@@ -21,8 +22,6 @@ import com.example.homeworkhelper.databinding.ActivityHistoryDisplayBinding;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.Response;
 
 public class HistoryDisplayActivity extends AppCompatActivity {
 
@@ -71,25 +70,17 @@ public class HistoryDisplayActivity extends AppCompatActivity {
         MyPageAdapter adapter = new MyPageAdapter(this, getSupportFragmentManager());
 
         //页面的数据
-        List<RecordData> recordDataList = new ArrayList<>();
-
-        Response response = utils.getAllHistory("http://10.0.2.2:8888/helper/history/allHistory", "1");
-
-//        try {
-//            System.out.println();
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
+        List<RecordData> recordDataList = utils.getAllHistory("http://10.0.2.2:8888/helper/history/allHistory", "1");
 
 
 
-        HistoryFragment fragment = new HistoryFragment(recordDataList);
+        HistoryFragment fragment = new HistoryFragment(recordDataList, this);
         for (int i = 0; i < tabName.size(); i++) {
             Bundle bundle = new Bundle();
             bundle.putString("tabName", tabName.get(i));
             fragment.setArguments(bundle);
             adapter.addFragment(fragment, tabName.get(i));
-            fragment = new HistoryFragment(recordDataList);
+            fragment = new HistoryFragment(recordDataList, this);
         }
 
         viewPager = binding.viewPager;

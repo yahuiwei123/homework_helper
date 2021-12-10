@@ -134,7 +134,6 @@ public class APIUtils {
         }
         return null;
     }
-
     /**
      * 传入图片的Base64编码字符串
      */
