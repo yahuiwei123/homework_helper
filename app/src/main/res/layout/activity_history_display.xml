@@ -49,11 +49,12 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="wrap_content"
-            app:tabIndicatorColor="@color/light_blue"
+            app:tabIndicatorColor="@color/blue"
             android:layout_height="wrap_content"
             app:tabRippleColor="@color/transparent"
-            app:tabIndicatorFullWidth="false"
-            app:tabIndicatorHeight="4dp"
+            app:tabIndicator="@drawable/history_tab"
+            app:tabSelectedTextColor="@color/blue"
+            app:tabTextAppearance="@style/TextAppearance.AppCompat.Medium"
             app:tabTextColor="@color/black"/>
     </com.google.android.material.appbar.AppBarLayout>
 

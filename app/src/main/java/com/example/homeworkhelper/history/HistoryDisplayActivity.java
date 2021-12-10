@@ -43,6 +43,7 @@ public class HistoryDisplayActivity extends AppCompatActivity {
 
         initPager(tabName);
         TabLayout tabs = binding.tabs;
+
         tabs.setupWithViewPager(viewPager);
 
         //设置返回按钮和删除记录按钮
