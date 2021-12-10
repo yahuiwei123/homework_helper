@@ -47,7 +47,7 @@ public class ResultDisplayActivity extends AppCompatActivity {
         searchImg.setImageBitmap(getBitmap());
 //        test();
         LogRecord logRecord = JsonUtils.parseJson(msg);
-        ArrayList<Item> itemArrayList = logRecord.getItemArrayList();   // logrecord可能是null
+        ArrayList<Item> itemArrayList = logRecord.getItemArrayList() != null ? logRecord.getItemArrayList() : new ArrayList<>();
         // 错题本选择
         mistakeAdd.setOnClickListener(v -> mistakeAdd.setSelected(!mistakeAdd.isSelected()));
 

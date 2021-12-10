@@ -22,6 +22,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
 import com.example.homeworkhelper.R;
+import com.example.homeworkhelper.history.HistoryDisplayActivity;
 import com.example.homeworkhelper.result.ResultDisplayActivity;
 import com.example.homeworkhelper.utils.APIUtils;
 
@@ -40,6 +41,7 @@ public class MainPageActivity extends Activity implements View.OnClickListener {
     private Button btnO_back;               //返回按钮
     private Button btnO_crop;               //裁剪按钮
     private Button btnO_confirm;            //确认按钮
+    private Button btnOpenHistory;          //跳转历史记录界面按钮
     private ImageView ivShowPicture;        //图片显示imageview
     //以下为区分Activity回传的区分静态变量
     private static final int REQUEST_CAMERA_1 = 1;
@@ -77,6 +79,7 @@ public class MainPageActivity extends Activity implements View.OnClickListener {
     private void init() {
         //xml文件展示页面层的每一个控件都需要初始化
         ivShowPicture = (ImageView) findViewById(R.id.ivShowPicture);
+        btnOpenHistory = (Button) findViewById(R.id.btnOpenHistory);
         btnOpenCamera = (Button) findViewById(R.id.btnOpenCamera);
         btnOpenAlbum = (Button) findViewById(R.id.btnOpenAlbum);
         btnO_revolve = (Button) findViewById(R.id.btnO_revolve);
@@ -88,6 +91,7 @@ public class MainPageActivity extends Activity implements View.OnClickListener {
     }
     // 控件绑定点击事件
     private void bindClick() {
+        btnOpenHistory.setOnClickListener(this);
         btnOpenCamera.setOnClickListener(this);
         btnOpenAlbum.setOnClickListener(this);
         btnO_revolve.setOnClickListener(this);
@@ -122,9 +126,17 @@ public class MainPageActivity extends Activity implements View.OnClickListener {
             case R.id.btnO_confirm:
                 confirmPic();
                 break;
+            case R.id.btnOpenHistory:
+                skiptoHistory();
+                break;
             default:
                 break;
         }
+    }
+
+    private void skiptoHistory() {
+        Intent intent = new Intent(MainPageActivity.this, HistoryDisplayActivity.class);
+        startActivity(intent);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

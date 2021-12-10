@@ -60,9 +60,7 @@ public class HistoryDisplayActivity extends AppCompatActivity {
         MyPageAdapter adapter = new MyPageAdapter(this, getSupportFragmentManager());
 
         //页面的数据
-        List<RecordData> recordDataList = utils.getAllHistory("http://10.0.2.2:8888/helper/history/allHistory", "1");
-
-
+        List<RecordData> recordDataList = utils.getAllHistory("http://192.168.15.74/helper/history/allHistory", "1");
 
         HistoryFragment fragment = new HistoryFragment(recordDataList, this);
         for (int i = 0; i < tabName.size(); i++) {
