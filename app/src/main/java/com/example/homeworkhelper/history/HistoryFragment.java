@@ -40,7 +40,6 @@ public class HistoryFragment extends Fragment {
 
     public HistoryFragment(List<RecordData> recordDataList) {
         this.recordDataList = recordDataList;
-        System.out.println("====================");
     }
 
     /**

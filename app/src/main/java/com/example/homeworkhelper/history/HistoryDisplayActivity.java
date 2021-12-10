@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.homeworkhelper.history.bean.TestBean;
 import com.example.homeworkhelper.history.request.HistoryRequestUtils;
 import com.google.android.material.tabs.TabLayout;
 
@@ -73,14 +74,7 @@ public class HistoryDisplayActivity extends AppCompatActivity {
         //页面的数据
         List<RecordData> recordDataList = new ArrayList<>();
 
-        Response response = utils.getAllHistory("http://10.0.2.2:8888/helper/history/allHistory", "1");
-
-//        try {
-//            System.out.println();
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-
+        utils.getAllHistory("http://10.0.2.2:8888/helper/history/allHistory", "1");
 
 
         HistoryFragment fragment = new HistoryFragment(recordDataList);
