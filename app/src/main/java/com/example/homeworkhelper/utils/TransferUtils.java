@@ -27,6 +27,10 @@ public class TransferUtils {
         parseToObject(responseResult, dataClass);
     }
 
+    public TransferUtils(String responseResult, Class dataClass, ArrayList arrayList) {
+        parseToObject(responseResult, dataClass, arrayList);
+    }
+
     public Integer getCode() {
         return code;
     }
@@ -56,6 +60,24 @@ public class TransferUtils {
                 JSONObject data = dataList.getJSONObject(i);
                 Object finalData = gson.fromJson(String.valueOf(data), objClass);
                 result.add(finalData);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void parseToObject(String responseResult, Class objClass, ArrayList arrayList){
+        Gson gson = new Gson();
+        try{
+            JSONObject jsonObject = new JSONObject(responseResult);
+            code = (Integer) jsonObject.get("code");
+            success = (Boolean) jsonObject.get("success");
+            message = (String) jsonObject.get("message");
+            JSONArray dataList = (JSONArray) jsonObject.get("data");
+            for (int i = 0; i < dataList.length(); i++) {
+                JSONObject data = dataList.getJSONObject(i);
+                Object finalData = gson.fromJson(String.valueOf(data), objClass);
+                arrayList.add(finalData);
             }
         } catch (Exception e) {
             e.printStackTrace();

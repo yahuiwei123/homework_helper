@@ -6,10 +6,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.homeworkhelper.history.HistoryFragment">
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+
+    <!-- 数据还未请求到或者没有数据的时候，页面渲染出来的背景 -->
+    <TextView
+        android:id="@+id/history_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/grey"
+        android:visibility="visible"/>
+
+    <!-- 请求到数据之后渲染的页面 -->
+    <LinearLayout
+        android:id="@+id/dataRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="invisible">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"

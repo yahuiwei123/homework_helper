@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +25,13 @@ import java.util.List;
  */
 public class HistoryFragment extends Fragment {
 
+    private View view;
     private List<RecordData> recordDataList;
-    private RecyclerView recyclerView;
+    private IOnItemClickListener onItemClickListener = new IOnItemClickListener();
     private Activity activity;
+    private MyDataAdapter adapter = new MyDataAdapter(recordDataList, onItemClickListener, activity);;
+    private RecyclerView recyclerView;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,17 +82,28 @@ public class HistoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_history, container, false);
+        view = inflater.inflate(R.layout.fragment_history, container, false);
 
-        recyclerView = view.findViewById(R.id.rv);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(HistoryFragment.this.getContext()));
-
-        MyDataAdapter adapter = new MyDataAdapter(recordDataList, new IOnItemClickListener(), activity);
-        recyclerView.setAdapter(adapter);
+        if(recordDataList == null || recordDataList.isEmpty()) {
+            view.findViewById(R.id.history_background).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.dataRecycler).setVisibility(View.INVISIBLE);
+        } else {
+            recyclerView = view.findViewById(R.id.rv);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(HistoryFragment.this.getContext()));
+            recyclerView.setAdapter(adapter);
+            view.findViewById(R.id.history_background).setVisibility(View.INVISIBLE);
+            view.findViewById(R.id.dataRecycler).setVisibility(View.VISIBLE);
+        }
 
         //获取tab名
         String tab = getArguments().getString("tabName");
         return view;
+    }
+
+    public void refreshData() {
+        adapter.refreshDataList();
+        view.findViewById(R.id.history_background).setVisibility(View.INVISIBLE);
+        view.findViewById(R.id.dataRecycler).setVisibility(View.VISIBLE);
     }
 }

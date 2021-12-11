@@ -18,12 +18,12 @@
             android:layout_alignParentTop="true"
             android:text="历史记录"
             />
+
         <Button
             android:id="@+id/btnOpenCamera"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
             android:background="@drawable/circle_button"
             android:text="拍照搜题" />
 

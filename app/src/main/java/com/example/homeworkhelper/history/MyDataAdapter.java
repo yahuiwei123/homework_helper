@@ -17,6 +17,13 @@ public class MyDataAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private IOnItemClickListener itemClickListener;
     private Activity activity;
 
+    public void refreshDataList() {
+        for (int i = 0; i < dataList.size(); i++) {
+            System.out.println(dataList.get(i).getSearch_id());
+        }
+        notifyDataSetChanged();
+    }
+
     MyDataAdapter(List<RecordData> recordDataList, IOnItemClickListener onItemClickListener, Activity activity) {
         super();
         dataList = recordDataList;

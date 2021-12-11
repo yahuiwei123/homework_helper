@@ -13,6 +13,15 @@ public class RecordData {
     private int dev_id;
     private String search_image;
     private String items;
+    private int is_marked;
+
+    public int getIs_marked() {
+        return is_marked;
+    }
+
+    public void setIs_marked(int is_marked) {
+        this.is_marked = is_marked;
+    }
 
     public int getDev_id() {
         return dev_id;

@@ -2,14 +2,18 @@ package com.example.homeworkhelper.history;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.homeworkhelper.history.bean.RecordData;
 import com.example.homeworkhelper.history.request.HistoryRequestUtils;
+import com.example.homeworkhelper.utils.TransferUtils;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -27,7 +31,27 @@ public class HistoryDisplayActivity extends AppCompatActivity {
 
     private ActivityHistoryDisplayBinding binding;
     private ViewPager viewPager;
+    private ArrayList<RecordData> recordDataList = new ArrayList<>();
+    private HistoryFragment allFragment;
+    private HistoryFragment markedFragment;
+    private ArrayList<RecordData> markedDataList = new ArrayList<>();
     private HistoryRequestUtils utils = new HistoryRequestUtils();
+    private Handler handler = new Handler(){
+        //接收请求完成消息
+        @Override
+        public void handleMessage(@NonNull Message msg){
+            super.handleMessage(msg);
+            String res = (String) msg.obj;
+            new TransferUtils(res, RecordData.class, recordDataList);
+            for (int i = 0; i < recordDataList.size(); i++) {
+                System.out.println(recordDataList.get(i).getIs_marked());
+                if (recordDataList.get(i).getIs_marked() == 1) markedDataList.add(recordDataList.get(i));
+            }
+            allFragment.refreshData();
+            markedFragment.refreshData();
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +74,7 @@ public class HistoryDisplayActivity extends AppCompatActivity {
         binding.historyToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                finish();
             }
         });
     }
@@ -60,17 +84,32 @@ public class HistoryDisplayActivity extends AppCompatActivity {
         MyPageAdapter adapter = new MyPageAdapter(this, getSupportFragmentManager());
 
         //页面的数据
-        List<RecordData> recordDataList = utils.getAllHistory("http://192.168.15.74/helper/history/allHistory", "1");
+        utils.setHandler(handler);
+        String res = utils.getAllHistory("http://10.0.2.2:8888/helper/history/allHistory", "1");
+        recordDataList = new TransferUtils(res, RecordData.class).getResult();
 
-        HistoryFragment fragment = new HistoryFragment(recordDataList, this);
-        for (int i = 0; i < tabName.size(); i++) {
-            Bundle bundle = new Bundle();
-            bundle.putString("tabName", tabName.get(i));
-            fragment.setArguments(bundle);
-            adapter.addFragment(fragment, tabName.get(i));
-            fragment = new HistoryFragment(recordDataList, this);
+        //所有历史记录
+        allFragment = new HistoryFragment(recordDataList, this);
+        Bundle bundle = new Bundle();
+        bundle.putString("tabName", tabName.get(0));
+        allFragment.setArguments(bundle);
+        adapter.addFragment(allFragment, tabName.get(0));
+
+        //错题历史记录
+        try {
+            for (int i = 0; i < recordDataList.size(); i++) {
+                if (recordDataList.get(i).getIs_marked() == 1) markedDataList.add(recordDataList.get(i));
+            }
+        } catch (NullPointerException e){
+            System.out.println("数据还没拿到");
         }
+        markedFragment = new HistoryFragment(markedDataList, this);
+        bundle = new Bundle();
+        bundle.putString("tabName", tabName.get(1));
+        markedFragment.setArguments(bundle);
+        adapter.addFragment(markedFragment, tabName.get(1));
 
+        //viewPager绑定
         viewPager = binding.viewPager;
         viewPager.setAdapter(adapter);
     }
