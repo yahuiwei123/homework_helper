@@ -29,7 +29,7 @@ public class HistoryFragment extends Fragment {
     private List<RecordData> recordDataList;
     private IOnItemClickListener onItemClickListener = new IOnItemClickListener();
     private Activity activity;
-    private MyDataAdapter adapter = new MyDataAdapter(recordDataList, onItemClickListener, activity);;
+    private MyDataAdapter adapter;
     private RecyclerView recyclerView;
 
 
@@ -49,6 +49,7 @@ public class HistoryFragment extends Fragment {
     public HistoryFragment(List<RecordData> recordDataList, Activity activity) {
         this.recordDataList = recordDataList;
         this.activity = activity;
+        adapter = new MyDataAdapter(this.recordDataList, onItemClickListener, activity);
     }
 
     /**
@@ -84,16 +85,14 @@ public class HistoryFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_history, container, false);
 
-        if(recordDataList == null || recordDataList.isEmpty()) {
+        recyclerView = view.findViewById(R.id.rv);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(HistoryFragment.this.getContext()));
+        recyclerView.setAdapter(adapter);
+
+        if(recordDataList.isEmpty()) {
             view.findViewById(R.id.history_background).setVisibility(View.VISIBLE);
             view.findViewById(R.id.dataRecycler).setVisibility(View.INVISIBLE);
-        } else {
-            recyclerView = view.findViewById(R.id.rv);
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new LinearLayoutManager(HistoryFragment.this.getContext()));
-            recyclerView.setAdapter(adapter);
-            view.findViewById(R.id.history_background).setVisibility(View.INVISIBLE);
-            view.findViewById(R.id.dataRecycler).setVisibility(View.VISIBLE);
         }
 
         //获取tab名

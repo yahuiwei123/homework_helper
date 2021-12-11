@@ -96,13 +96,6 @@ public class HistoryDisplayActivity extends AppCompatActivity {
         adapter.addFragment(allFragment, tabName.get(0));
 
         //错题历史记录
-        try {
-            for (int i = 0; i < recordDataList.size(); i++) {
-                if (recordDataList.get(i).getIs_marked() == 1) markedDataList.add(recordDataList.get(i));
-            }
-        } catch (NullPointerException e){
-            System.out.println("数据还没拿到");
-        }
         markedFragment = new HistoryFragment(markedDataList, this);
         bundle = new Bundle();
         bundle.putString("tabName", tabName.get(1));
