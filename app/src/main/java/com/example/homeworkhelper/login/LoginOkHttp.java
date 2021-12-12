@@ -2,6 +2,7 @@ package com.example.homeworkhelper.login;
 
 import com.example.homeworkhelper.history.bean.RecordData;
 import com.example.homeworkhelper.utils.TransferUtils;
+import com.example.homeworkhelper.utils.common.Config;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class LoginOkHttp{
     private static String res;
     public static UserDto getLogin(String phone, String email,String devid) {
         final UserDto[] resultUser = {new UserDto()};
-        String url = "http://192.168.14.1:8888/login/login";
+        String url =  Config.HttpUrlHead + "/login/login";
         OkHttpClient okHttpClient = new OkHttpClient();
         Request.Builder request = new Request.Builder();
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
@@ -38,7 +39,6 @@ public class LoginOkHttp{
                 }
             }
         };
-
         try {
             t.start();
             t.join();

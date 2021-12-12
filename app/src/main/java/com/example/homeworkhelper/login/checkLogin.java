@@ -14,7 +14,8 @@ public class checkLogin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences sharedPreferences = getSharedPreferences("status", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("userInfor", Context.MODE_PRIVATE);
+        System.out.println(sharedPreferences.getAll());
         boolean isLogin = sharedPreferences.getBoolean("isLogin",false);
         if(!isLogin){
             Intent intent = new Intent(checkLogin.this,LoginMain.class);

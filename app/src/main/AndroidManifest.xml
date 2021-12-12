@@ -37,7 +37,26 @@
             android:exported="true"
             android:theme="@style/Theme.Result"
             ></activity>
-
+        <activity
+            android:name=".login.LoginMain"
+            android:exported="true"
+            android:theme="@style/Theme.Result">
+        </activity>
+        <activity android:name=".login.PrivacyAgreement"
+            android:exported="true"
+            android:theme="@style/Theme.Result">
+        </activity>
+        <activity android:name=".login.UserRead">
+            android:exported="true"
+            android:theme="@style/Theme.Result">
+        </activity>
+        <activity android:name=".login.checkLogin"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.homeworkhelper.fileprovider"

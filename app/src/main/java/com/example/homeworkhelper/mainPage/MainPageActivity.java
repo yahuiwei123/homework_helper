@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.View;
@@ -17,14 +19,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
 import com.example.homeworkhelper.R;
 import com.example.homeworkhelper.history.HistoryDisplayActivity;
+import com.example.homeworkhelper.history.bean.RecordData;
 import com.example.homeworkhelper.result.ResultDisplayActivity;
 import com.example.homeworkhelper.utils.APIUtils;
+import com.example.homeworkhelper.utils.TransferUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -53,6 +58,11 @@ public class MainPageActivity extends Activity implements View.OnClickListener {
     private static String base64 = null;
     private Uri photoUri = null;
     private Uri photoOutputUri = null; // 图片最终的输出文件的 Uri
+    private static Handler resultHandler;
+
+    public static void setHandler(Handler handler) {
+        resultHandler = handler;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,14 +151,25 @@ public class MainPageActivity extends Activity implements View.OnClickListener {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void confirmPic() {
+        Bundle bundle = new Bundle();
         getImgBase64(ivShowPicture);
+        System.out.println(base64);
+        Handler handler = new Handler(){
+            @Override
+            public void handleMessage(@NonNull Message msg){
+                super.handleMessage(msg);
+                String result = (String) msg.obj;
+                System.out.println(result);
+                bundle.putString("APIresult", result);    //递交给历史记录页面api的返回结果
+                resultHandler.sendMessage(new Message());
+            }
+        };
+        APIUtils.setHandler(handler);
+        APIUtils.call_api(base64);
+        bundle.putString("Bitmap",base64);
         Intent intenttrans = new Intent();
         intenttrans.setClass(MainPageActivity.this, ResultDisplayActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("APIresult",APIUtils.call_api(base64));    //递交给历史记录页面api的返回结果
-        System.out.println(APIUtils.call_api(base64));
-
-        bundle.putString("Bitmap",base64);                          //将用户自己拍到的图片递交给历史记录页面
+                                 //将用户自己拍到的图片递交给历史记录页面
         intenttrans.putExtras(bundle);
         startActivity(intenttrans);
     }

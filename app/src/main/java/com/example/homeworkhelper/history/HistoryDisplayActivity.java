@@ -12,6 +12,7 @@ import com.example.homeworkhelper.history.bean.RecordData;
 import com.example.homeworkhelper.history.request.HistoryRequestUtils;
 import com.example.homeworkhelper.utils.TestOkHttp;
 import com.example.homeworkhelper.utils.TransferUtils;
+import com.example.homeworkhelper.utils.common.Config;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
@@ -87,7 +88,7 @@ public class HistoryDisplayActivity extends AppCompatActivity {
         TestOkHttp.postBaidu();
         //页面的数据
         utils.setHandler(handler);
-        String res = utils.getAllHistory("http://10.0.2.2:8888/helper/history/allHistory", "1");
+        String res = utils.getAllHistory(Config.HttpUrlHead + "/helper/history/allHistory", "1");
 //        recordDataList = new TransferUtils(res, RecordData.class).getResult();
 
         //所有历史记录

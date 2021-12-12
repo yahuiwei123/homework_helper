@@ -1,6 +1,9 @@
 package com.example.homeworkhelper.utils;
 
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
+
 import androidx.annotation.RequiresApi;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -26,7 +29,12 @@ public class APIUtils {
     private static final Base64.Encoder encoder = Base64.getEncoder();
     private static String imageBytes;
     private static String result;
-    private static String output;
+
+    public static void setHandler(Handler handler) {
+        APIUtils.handler = handler;
+    }
+
+    private static Handler handler;
 
     private static String createSignature(String data, String key) throws Exception {
         Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
@@ -101,8 +109,10 @@ public class APIUtils {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                 BufferedReader reader = new BufferedReader(inputStreamReader);
                 String output = reader.readLine();
+                Message msg = new Message();
+                msg.obj = output;
+                handler.sendMessage(msg);
                 result = output;
-                output = reader.readLine();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -127,7 +137,6 @@ public class APIUtils {
                 }
             };
             t.start();
-            t.join();
             return result;
         } catch (Exception e) {
             e.printStackTrace();
@@ -151,7 +160,6 @@ public class APIUtils {
                 }
             };
             t.start();
-            t.join();
             return result;
         } catch (Exception e) {
             e.printStackTrace();

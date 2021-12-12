@@ -114,6 +114,7 @@ public class LoginMain extends AppCompatActivity {
                                 Toast.makeText(LoginMain.this,"验证成功", Toast.LENGTH_SHORT).show();
                                 //获取用户信息
                                 UserDto user=LoginOkHttp.getLogin(phonStr,null,deviceId);
+                                System.out.println(user.toString());
                                 //登录成功后，缓存本地数据
                                 SharedPreferences sharedPreferences = getSharedPreferences("userInfor",Context.MODE_PRIVATE);
 
@@ -128,7 +129,7 @@ public class LoginMain extends AppCompatActivity {
 
 
                                 //跳转到下一页面
-                                Intent intent = new Intent(LoginMain.this, UserRead.class);
+                                Intent intent = new Intent(LoginMain.this, MainPageActivity.class);
                                 startActivity(intent);
                             }
                         });
