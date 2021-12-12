@@ -33,9 +33,9 @@ public class TestOkHttp {
     }
 
     public static void postBaidu() {
-        String url = "https://qcx12s.api.cloudendpoint.cn/getComment";
+        String url = "http://10.0.2.2:8888/helper/history/modify";
         MediaType mediaType = MediaType.parse("text/x-markdown; charset=utf-8");
-        String requestBody = "a_id: 1";
+        String requestBody = "u_id: 1";
         Request request = new Request.Builder()
                 .url(url)
                 .post(RequestBody.create(mediaType, requestBody))

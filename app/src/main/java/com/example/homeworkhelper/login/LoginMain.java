@@ -1,7 +1,9 @@
 package com.example.homeworkhelper.login;
 
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -12,38 +14,55 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.homeworkhelper.R;
+import com.example.homeworkhelper.history.HistoryDisplayActivity;
 import com.example.homeworkhelper.mainPage.MainPageActivity;
+import com.example.homeworkhelper.utils.TestOkHttp;
+import com.google.android.material.card.MaterialCardView;
+import com.google.gson.Gson;
 import com.mob.MobSDK;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.UUID;
+
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
-
+/*
+    本地缓存文件名userInfor:
+        1、userDto:以json串形式存储的Sys_user表中的所有信息，String（json）类型
+        2、isLogin:当前用户是否登录，boolean类型
+        3、isReadPracy:当前用户是否阅读过隐私文档，boolean类型
+        4、deviceId:设备唯一标识,String类型
+* */
 public class LoginMain extends AppCompatActivity {
     public static String phonStr;
     public static String pinStr;
+    private static String deviceId;
     EventHandler handler;
     private static boolean isReadPrivacy=false;
     private static boolean isLogin=false;
     public final static int REQUEST_READ_PHONE_STATE = 1;
 
-
-//    private static boolean isGranted = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,9 +92,10 @@ public class LoginMain extends AppCompatActivity {
                 back();
             }
         });
-
-        //在本地创建的状态缓存文件
-        SharedPreferences sharedPreferences = getSharedPreferences("status",Context.MODE_PRIVATE);
+        //缓存deviceId
+        SharedPreferences sharedPreferences = getSharedPreferences("userInfor",Context.MODE_PRIVATE);
+        getDeviceId();
+        sharedPreferences.edit().putString("deviceId",deviceId).commit();
 
         MobSDK.submitPolicyGrantResult(true,null);//已经获取了使用的权限
 
@@ -92,10 +112,23 @@ public class LoginMain extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Toast.makeText(LoginMain.this,"验证成功", Toast.LENGTH_SHORT).show();
-                                isLogin=true;//成功登录后将标识符改为已经登录
-                                //登录成功后在本地status文件缓存一个已经登录的标识
+                                //获取用户信息
+                                UserDto user=LoginOkHttp.getLogin(phonStr,null,deviceId);
+                                //登录成功后，缓存本地数据
+                                SharedPreferences sharedPreferences = getSharedPreferences("userInfor",Context.MODE_PRIVATE);
+
+                                //将User数据以json形式存储
+                                Gson gson = new Gson();
+                                String userJson =gson.toJson(user);
+                                sharedPreferences.edit().putString("userDto",userJson).commit();
+
+                                //将标识符改为已经登录
+                                isLogin=true;
                                 sharedPreferences.edit().putBoolean("isLogin",isLogin).commit();
-                                Intent intent = new Intent(LoginMain.this, MainPageActivity.class);
+
+
+                                //跳转到下一页面
+                                Intent intent = new Intent(LoginMain.this, UserRead.class);
                                 startActivity(intent);
                             }
                         });
@@ -160,9 +193,11 @@ public class LoginMain extends AppCompatActivity {
         ClickableSpan clickableSpan2 = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
+                //缓存用户已经阅读隐私政策
                 isReadPrivacy=true;
-                SharedPreferences sharedPreferences = getSharedPreferences("status",Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getSharedPreferences("userInfor",Context.MODE_PRIVATE);
                 sharedPreferences.edit().putBoolean("isReadPracy",isReadPrivacy).commit();
+
                 Intent intent = new Intent(LoginMain.this,PrivacyAgreement.class);
                 startActivity(intent);
             };
@@ -180,25 +215,32 @@ public class LoginMain extends AppCompatActivity {
         spannable.setSpan(clickableSpan2,13,19, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spanView.setText(spannable);
     }
-    private String READ_PHONE_NUMBERS() {
-        String number = "";
+    private void getDeviceId() {
         int permissionCheck = ContextCompat.checkSelfPermission(this,Manifest.permission.READ_PHONE_STATE);//检查是否有权限
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {//如果没有权限
+            System.out.println("9999");
             //有权限: PackageManager.PERMISSION_GRANTED
             //无权限: PackageManager.PERMISSION_DENIED
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
             //请求授权，弹出请求框
         } else {
-            TelephonyManager mTelephonyMgr;
-            mTelephonyMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-            number = mTelephonyMgr.getLine1Number().toString();
-            Toast.makeText(LoginMain.this,number,Toast.LENGTH_LONG).show();
+//            TelephonyManager mTelephonyMgr;
+//            mTelephonyMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+//            number = mTelephonyMgr.getLine1Number().toString();
+//            Toast.makeText(LoginMain.this,number,Toast.LENGTH_LONG).show();
+            TelephonyManager tm = (TelephonyManager) getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
+            String tmDevice, tmSerial, androidId;
+            tmDevice = "" + tm.getDeviceId();
+            tmSerial = "" + tm.getSimSerialNumber();
+            androidId = "" + android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+            UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
+            deviceId = deviceUuid.toString();
+            System.out.println(deviceId);
         }
-        return number;
     }
     private void getPin(){
         //确保看过隐私协议
-        SharedPreferences sharedPreferences = getSharedPreferences("status",Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("userInfor",Context.MODE_PRIVATE);
         isReadPrivacy=sharedPreferences.getBoolean("isReadPracy",false);
 
         if(!isReadPrivacy){

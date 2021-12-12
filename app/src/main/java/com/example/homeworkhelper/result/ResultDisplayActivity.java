@@ -30,6 +30,7 @@ public class ResultDisplayActivity extends AppCompatActivity {
     private TextView findSimi;
     private ImageView mistakeAdd;
     private ScrollView scrollView;
+    private ArrayList<Item> itemArrayList = new ArrayList<>();
     private String msg;
 
 //    @RequiresApi(api = Build.VERSION_CODES.O)
@@ -47,7 +48,7 @@ public class ResultDisplayActivity extends AppCompatActivity {
         searchImg.setImageBitmap(getBitmap());
 //        test();
         LogRecord logRecord = JsonUtils.parseJson(msg);
-        ArrayList<Item> itemArrayList = logRecord.getItemArrayList() != null ? logRecord.getItemArrayList() : new ArrayList<>();
+        itemArrayList = logRecord.getItemArrayList();
         // 错题本选择
         mistakeAdd.setOnClickListener(v -> mistakeAdd.setSelected(!mistakeAdd.isSelected()));
 

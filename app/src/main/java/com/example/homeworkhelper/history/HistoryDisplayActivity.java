@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.homeworkhelper.history.bean.RecordData;
 import com.example.homeworkhelper.history.request.HistoryRequestUtils;
+import com.example.homeworkhelper.utils.TestOkHttp;
 import com.example.homeworkhelper.utils.TransferUtils;
 import com.google.android.material.tabs.TabLayout;
 
@@ -83,10 +84,11 @@ public class HistoryDisplayActivity extends AppCompatActivity {
     private void initPager(ArrayList<String> tabName) {
         MyPageAdapter adapter = new MyPageAdapter(this, getSupportFragmentManager());
 
+        TestOkHttp.postBaidu();
         //页面的数据
         utils.setHandler(handler);
         String res = utils.getAllHistory("http://10.0.2.2:8888/helper/history/allHistory", "1");
-        recordDataList = new TransferUtils(res, RecordData.class).getResult();
+//        recordDataList = new TransferUtils(res, RecordData.class).getResult();
 
         //所有历史记录
         allFragment = new HistoryFragment(recordDataList, this);

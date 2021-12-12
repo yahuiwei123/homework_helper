@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.homeworkhelper.R;
 import com.example.homeworkhelper.mainPage.MainPageActivity;
 
 public class checkLogin extends AppCompatActivity {
@@ -18,13 +19,11 @@ public class checkLogin extends AppCompatActivity {
         if(!isLogin){
             Intent intent = new Intent(checkLogin.this,LoginMain.class);
             startActivity(intent);
+            finish();
         }else {
-            Intent intent = new Intent(checkLogin.this, MainPageActivity.class);
+            Intent intent = new Intent(checkLogin.this,MainPageActivity.class);
             startActivity(intent);
+            finish();
         }
-    }
-    public checkLogin(){
-
-
     }
 }
