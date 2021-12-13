@@ -1,5 +1,8 @@
 package com.example.homeworkhelper.login;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import com.example.homeworkhelper.history.bean.RecordData;
 import com.example.homeworkhelper.utils.TransferUtils;
 import com.example.homeworkhelper.utils.common.Config;
@@ -15,7 +18,13 @@ import okhttp3.Response;
 
 public class LoginOkHttp{
     private static String res;
-    public static UserDto getLogin(String phone, String email,String devid) {
+    private static Context context;
+
+    public static void setContext(Context context) {
+        LoginOkHttp.context = context;
+    }
+
+    public static UserDto getLogin(String phone, String email, String devid) {
         final UserDto[] resultUser = {new UserDto()};
         String url =  Config.HttpUrlHead + "/login/login";
         OkHttpClient okHttpClient = new OkHttpClient();
@@ -46,7 +55,12 @@ public class LoginOkHttp{
             e.printStackTrace();
         }
         TransferUtils transferUtils = new TransferUtils(res, UserDto.class);
-        ArrayList<UserDto> result =transferUtils.getResult();
+        ArrayList<UserDto> result = transferUtils.getResult();
+        try{
+            result.get(0);
+        } catch (Exception e) {
+            Toast.makeText(context, "服务器未响应", Toast.LENGTH_SHORT).show();
+        }
         return result.get(0);
     }
 

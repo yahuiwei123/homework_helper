@@ -11,7 +11,7 @@ public class RecordData {
     private int ques_class;
     private int ans_num;
     private int dev_id;
-    private String search_image;
+    private byte[] search_image;
     private String items;
     private int is_marked;
 
@@ -31,11 +31,11 @@ public class RecordData {
         this.dev_id = dev_id;
     }
 
-    public String getSearch_image() {
+    public byte[] getSearch_image() {
         return search_image;
     }
 
-    public void setSearch_image(String search_image) {
+    public void setSearch_image(byte[] search_image) {
         this.search_image = search_image;
     }
 

@@ -1,5 +1,6 @@
 package com.example.homeworkhelper.history;
 
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,7 +27,8 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void onBind(int position, RecordData data) {
-//        imageView.setImageBitmap(data.getBitmap());
+        byte[] bytes = data.getSearch_image();
+        imageView.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
         classTextView.setText(className[data.getQues_class() - 1]);
         numTextView.setText("共" + data.getAns_num() + "条记录");
     }

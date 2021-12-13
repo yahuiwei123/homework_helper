@@ -3,18 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:padding="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.homeworkhelper.history.HistoryFragment">
     <!-- TODO: Update blank fragment layout -->
 
     <!-- 数据还未请求到或者没有数据的时候，页面渲染出来的背景 -->
-    <TextView
+    <LinearLayout
         android:id="@+id/history_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/grey"
-        android:visibility="visible"/>
+        android:gravity="center">
+        <TextView
+            android:layout_width="280dp"
+            android:layout_height="300dp"
+            android:background="@drawable/none"
+            android:visibility="visible" />
+    </LinearLayout>
+
 
     <!-- 请求到数据之后渲染的页面 -->
     <LinearLayout
@@ -23,23 +30,24 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:visibility="invisible">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="5dp"
+            android:background="@color/white">
 
         </androidx.recyclerview.widget.RecyclerView>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="15dp"
             android:background="@color/white"
+            android:text="没有更多内容了"
             android:textColor="@color/grey"
-            android:text="没有更多内容了">
-        </TextView>
+            android:textSize="15dp"></TextView>
     </LinearLayout>
 
 </FrameLayout>
