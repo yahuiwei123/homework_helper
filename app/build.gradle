@@ -58,9 +58,8 @@ dependencies {
     implementation group: 'org.jsoup', name: 'jsoup', version: '1.8.3'
     implementation 'com.google.code.gson:gson:2.8.4'
 
-//    华蕴甲
-
-
+//  feedback
+    implementation 'io.github.lucksiege:pictureselector:v2.7.3-rc10'
 
 
 }

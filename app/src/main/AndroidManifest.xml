@@ -21,6 +21,16 @@
             android:name="com.google.android.actions"
             android:resource="@xml/files" />
         <activity
+            android:name="com.example.homeworkhelper.feedback.MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.SecondTest.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="com.example.homeworkhelper.history.HistoryDisplayActivity"
             android:exported="true"
             android:label="@string/app_name"
@@ -52,10 +62,11 @@
         </activity>
         <activity android:name=".login.checkLogin"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <provider
             android:name="androidx.core.content.FileProvider"
