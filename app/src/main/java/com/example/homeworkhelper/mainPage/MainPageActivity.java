@@ -325,14 +325,18 @@ public class MainPageActivity extends Activity implements View.OnClickListener {
                 super.handleMessage(msg);
                 String result = (String) msg.obj;
                 items = result;
+                System.out.println(items);
                 LogRecord logRecord = JsonUtils.parseJson(items);
                 ArrayList<Item> itemArrayList = logRecord.getItemArrayList();
                 ans_num = itemArrayList.size();
-                ques_class = itemArrayList.get(0).getSubject();
+                if (ans_num != 0) ques_class = itemArrayList.get(0).getSubject();
+                else ques_class = 0;
                 postSQL();
                 System.out.println(result);
                 bundle.putString("APIresult", result);    //递交给历史记录页面api的返回结果
-                resultHandler.sendMessage(new Message());
+                Message result_msg = new Message();
+                result_msg.obj = items;
+                resultHandler.sendMessage(result_msg);
             }
         };
         APIUtils.setHandler(handler);

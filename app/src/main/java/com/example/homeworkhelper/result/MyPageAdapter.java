@@ -21,18 +21,24 @@ public class MyPageAdapter extends FragmentPagerAdapter {
 
     private Context mContext;
     private LayoutInflater mInflater;
-    ArrayList<String> tabName = new ArrayList<>();
-    List<Fragment> fragments = new ArrayList<>();
+    ArrayList<String> tabName;
+    List<SearchResult> fragments;
 
 
-    public void addFragment(Fragment fragment, String name){
-        tabName.add(name);
-        fragments.add(fragment);
-    }
+//    public void addFragment(Fragment fragment, String name){
+//        tabName.add(name);
+//        fragments.add(fragment);
+//    }
 
     public MyPageAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
+    }
+
+    public MyPageAdapter(Context context, FragmentManager fm, ArrayList<SearchResult> searchResults, ArrayList<String> tabname) {
+        this(context, fm);
+        tabName = tabname;
+        fragments = searchResults;
     }
 
     @Override

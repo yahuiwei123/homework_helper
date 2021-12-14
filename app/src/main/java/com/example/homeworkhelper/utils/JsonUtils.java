@@ -22,9 +22,6 @@ public class JsonUtils {
             JSONArray items = (JSONArray)jsonObject.get("items"); //得到搜索结果的列表
             JSONObject baseResp = (JSONObject) jsonObject.get("BaseResp"); //得到BaseResp
             String logId = (String) baseResp.get("logId");
-            if (items.length() == 0){
-                return new LogRecord(null, logId);
-            }
             // 处理items保存到一个Item类型的ArrayList里
             for (int i = 0;i < items.length();i++){
                 JSONObject item = items.getJSONObject(i);

@@ -3,7 +3,7 @@ package com.example.homeworkhelper.utils.common;
 import java.util.ArrayList;
 
 public class LogRecord {
-    private ArrayList<Item> itemArrayList = new ArrayList<>();
+    private ArrayList<Item> itemArrayList;
     private String logId;
 
     public LogRecord(ArrayList<Item> itemArrayList, String logId) {
