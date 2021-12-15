@@ -26,10 +26,17 @@
         <entry key="..\:/Users/wyh/AndroidStudioProjects/SecondTest/app/src/main/res/layout/record_card.xml" value="0.1" />
         <entry key="..\:/Users/wyh/AndroidStudioProjects/SecondTest/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/Users/wyh/AndroidStudioProjects/homework_helper/HomeworkHelper/app/src/main/res/layout/activity_history_display.xml" value="0.1" />
+        <entry key="..\:/Users/wyh/Desktop/HomeworkHelper/app/src/main/res/drawable-v24/background.xml" value="0.1" />
+        <entry key="..\:/Users/wyh/Desktop/HomeworkHelper/app/src/main/res/drawable-v24/ic_back.xml" value="0.1" />
+        <entry key="..\:/Users/wyh/Desktop/HomeworkHelper/app/src/main/res/drawable-v24/ic_frame_2022.xml" value="0.1537037037037037" />
+        <entry key="..\:/Users/wyh/Desktop/HomeworkHelper/app/src/main/res/drawable-v24/ic_frame_2023.xml" value="0.1" />
         <entry key="..\:/Users/wyh/Desktop/HomeworkHelper/app/src/main/res/drawable-v24/outline_clear_24.xml" value="0.12447916666666667" />
         <entry key="..\:/Users/wyh/Desktop/HomeworkHelper/app/src/main/res/drawable-v24/shape_album.xml" value="0.17222222222222222" />
         <entry key="..\:/Users/wyh/Desktop/HomeworkHelper/app/src/main/res/drawable-v24/shape_camera.xml" value="0.17222222222222222" />
         <entry key="..\:/Users/wyh/Desktop/HomeworkHelper/app/src/main/res/drawable-v24/shape_cancel.xml" value="0.17222222222222222" />
+        <entry key="..\:/Users/wyh/Desktop/HomeworkHelper/app/src/main/res/drawable-v24/user_info_goto.xml" value="0.1537037037037037" />
+        <entry key="..\:/Users/wyh/Desktop/HomeworkHelper/app/src/main/res/drawable-v24/user_info_help.xml" value="0.1537037037037037" />
+        <entry key="..\:/Users/wyh/Desktop/HomeworkHelper/app/src/main/res/drawable-v24/user_info_setting.xml" value="0.1537037037037037" />
         <entry key="..\:/Users/wyh/Desktop/HomeworkHelper/app/src/main/res/drawable/chat_title_bg_repeat.xml" value="0.1953125" />
         <entry key="..\:/Users/wyh/Desktop/HomeworkHelper/app/src/main/res/drawable/common_btn_red.xml" value="0.1953125" />
         <entry key="..\:/Users/wyh/Desktop/HomeworkHelper/app/src/main/res/drawable/editview_shape.xml" value="0.1953125" />
@@ -51,6 +58,7 @@
         <entry key="..\:/Users/wyh/Desktop/HomeworkHelper/app/src/main/res/layout/activity_mainpage.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/wyh/Desktop/HomeworkHelper/app/src/main/res/layout/activity_result_display.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/wyh/Desktop/HomeworkHelper/app/src/main/res/layout/activity_selectimg.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/wyh/Desktop/HomeworkHelper/app/src/main/res/layout/activity_setting.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/wyh/Desktop/HomeworkHelper/app/src/main/res/layout/feedback_layout.xml" value="0.22" />
         <entry key="..\:/Users/wyh/Desktop/HomeworkHelper/app/src/main/res/layout/fragment_history.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/wyh/Desktop/HomeworkHelper/app/src/main/res/layout/fragment_search_result.xml" value="0.17916666666666667" />
