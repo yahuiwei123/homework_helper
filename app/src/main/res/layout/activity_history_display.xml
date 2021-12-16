@@ -36,7 +36,7 @@
 
     </androidx.appcompat.widget.Toolbar>
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
+        android:id="@+id/history_tabs"
         android:layout_width="wrap_content"
         app:tabIndicatorColor="@color/blue"
         android:layout_height="wrap_content"

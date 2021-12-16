@@ -50,11 +50,11 @@ public class UserDto {
         this.grade = grade;
     }
 
-    public int getU_id() {
+    public String getU_id() {
         return u_id;
     }
 
-    public void setU_id(int u_id) {
+    public void setU_id(String u_id) {
         this.u_id = u_id;
     }
 
@@ -72,7 +72,7 @@ public class UserDto {
     private String role_name;
     private String phone;
     private String grade;
-    private int u_id;
+    private String u_id;
     private int role_id;
 
     @Override

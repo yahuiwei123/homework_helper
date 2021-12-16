@@ -41,56 +41,56 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_user_info);
 
         initButton();
-        initTab();
+//        initTab();
 
         initUserDtoFromSharedPreference();
         refreshText();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        TabLayout.Tab tab1 = tabBtm.getTabAt(1);
-        tab1.select();
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        TabLayout.Tab tab1 = tabBtm.getTabAt(1);
+//        tab1.select();
+//
+//        initUserDtoFromSharedPreference();
+//        refreshText();
+//    }
 
-        initUserDtoFromSharedPreference();
-        refreshText();
-    }
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//        TabLayout.Tab tab1 = tabBtm.getTabAt(1);
+//        tab1.select();
+//
+//        initUserDtoFromSharedPreference();
+//        refreshText();
+//    }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        TabLayout.Tab tab1 = tabBtm.getTabAt(1);
-        tab1.select();
-
-        initUserDtoFromSharedPreference();
-        refreshText();
-    }
-
-    private void initTab() {
-        tabBtm = findViewById(R.id.user_info_tabs);
-        TabLayout.Tab tabHome = tabBtm.getTabAt(0);
-        TabLayout.Tab tabUserInfo = tabBtm.getTabAt(1);
-        tabUserInfo.select();
-        tabBtm.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if (tab==tabHome){
-                    startNewActivity(MainPageActivity.class);
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-    }
+//    private void initTab() {
+//        tabBtm = findViewById(R.id.user_info_tabs);
+//        TabLayout.Tab tabHome = tabBtm.getTabAt(0);
+//        TabLayout.Tab tabUserInfo = tabBtm.getTabAt(1);
+//        tabUserInfo.select();
+//        tabBtm.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                if (tab==tabHome){
+//                    startNewActivity(MainPageActivity.class);
+//                }
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
+//    }
 
     private void startNewActivity(Class<?> cl){
         startActivity(new Intent(this, cl));

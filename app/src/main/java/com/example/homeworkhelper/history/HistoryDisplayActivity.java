@@ -1,6 +1,7 @@
 package com.example.homeworkhelper.history;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.homeworkhelper.history.bean.RecordData;
 import com.example.homeworkhelper.history.request.HistoryRequestUtils;
+import com.example.homeworkhelper.login.UserDto;
 import com.example.homeworkhelper.utils.TestOkHttp;
 import com.example.homeworkhelper.utils.TransferUtils;
 import com.example.homeworkhelper.utils.common.Config;
@@ -25,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import com.example.homeworkhelper.databinding.ActivityHistoryDisplayBinding;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +71,7 @@ public class HistoryDisplayActivity extends AppCompatActivity {
         tabName.add("错题");
 
         initPager(tabName);
-        TabLayout tabs = binding.tabs;
+        TabLayout tabs = binding.historyTabs;
 
         tabs.setupWithViewPager(viewPager);
 
@@ -88,7 +91,11 @@ public class HistoryDisplayActivity extends AppCompatActivity {
         TestOkHttp.postBaidu();
         //页面的数据
         utils.setHandler(handler);
-        String res = utils.getAllHistory(Config.HttpUrlHead + "/helper/history/allHistory", "1");
+        SharedPreferences sharedPreferences = getSharedPreferences("userInfor",Context.MODE_PRIVATE);
+        String user = sharedPreferences.getString("userDto",null);
+        Gson gson = new Gson();
+        String u_id = gson.fromJson(user, UserDto.class).getU_id();
+        String res = utils.getAllHistory(Config.HttpUrlHead + "/helper/history/allHistory", u_id);
 //        recordDataList = new TransferUtils(res, RecordData.class).getResult();
 
         //所有历史记录

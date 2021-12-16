@@ -235,28 +235,28 @@ public class MainPageActivity extends Activity implements View.OnClickListener {
         animation.setRepeatMode(Animation.REVERSE);
         animation.setRepeatCount(Animation.INFINITE);
         circle2.startAnimation(animation);
-        tabLayout =(TabLayout) findViewById(R.id.user_info_tabs);
-                TabLayout.Tab tab0 = tabLayout.getTabAt(0);
-                TabLayout.Tab tab1 = tabLayout.getTabAt(1);
-                tab0.select();
-                tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                    @Override
-                    public void onTabSelected(TabLayout.Tab tab) {
-                        if (tab==tab1){
-                            startNewActivity(UserInfoActivity.class);
-                        }
-                    }
-
-                    @Override
-                    public void onTabUnselected(TabLayout.Tab tab) {
-
-                    }
-
-                    @Override
-                    public void onTabReselected(TabLayout.Tab tab) {
-
-                    }
-                });
+//        tabLayout =(TabLayout) findViewById(R.id.user_info_tabs);
+//                TabLayout.Tab tab0 = tabLayout.getTabAt(0);
+//                TabLayout.Tab tab1 = tabLayout.getTabAt(1);
+//                tab0.select();
+//                tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//                    @Override
+//                    public void onTabSelected(TabLayout.Tab tab) {
+//                        if (tab==tab1){
+//                            startNewActivity(UserInfoActivity.class);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onTabUnselected(TabLayout.Tab tab) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onTabReselected(TabLayout.Tab tab) {
+//
+//                    }
+//                });
         SharedPreferences sharedPreferences = getSharedPreferences("userInfor", Context.MODE_PRIVATE);
         int uid = sharedPreferences.getInt("u_id", 0); // 第二个参数是默认值
         int devid = sharedPreferences.getInt("dev_id",0);
