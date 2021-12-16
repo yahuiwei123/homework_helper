@@ -3,7 +3,9 @@ package com.example.homeworkhelper.mainPage;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -15,10 +17,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -32,12 +37,14 @@ import com.example.homeworkhelper.R;
 import com.example.homeworkhelper.history.HistoryDisplayActivity;
 import com.example.homeworkhelper.history.bean.RecordData;
 import com.example.homeworkhelper.result.ResultDisplayActivity;
+import com.example.homeworkhelper.userInfo.UserInfoActivity;
 import com.example.homeworkhelper.utils.APIUtils;
 import com.example.homeworkhelper.utils.JsonUtils;
 import com.example.homeworkhelper.utils.TransferUtils;
 import com.example.homeworkhelper.utils.common.Config;
 import com.example.homeworkhelper.utils.common.Item;
 import com.example.homeworkhelper.utils.common.LogRecord;
+import com.google.android.material.tabs.TabLayout;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -58,6 +65,9 @@ import okhttp3.Response;
 
 public class MainPageActivity extends Activity implements View.OnClickListener {
 
+    private ImageView circle1;
+    private ImageView circle2;
+    private TabLayout tabLayout;
     private RelativeLayout StartView;       //拍照搜题页
     private RelativeLayout OperateView;     //图像处理页
     private Button btnOpenCamera;           //调用相机按钮
@@ -82,6 +92,9 @@ public class MainPageActivity extends Activity implements View.OnClickListener {
     private static String items;
     private static int ques_class;
     private static int ans_num;
+    private static int u_id;
+    private static int dev_id;
+    private Animation animation = null;             //动画类
     public static void setHandler(Handler handler) {
         resultHandler = handler;
     }
@@ -153,8 +166,8 @@ public class MainPageActivity extends Activity implements View.OnClickListener {
                 OkHttpClient okHttpClient = new OkHttpClient();
                 RequestBody requestBody = new FormBody.Builder()    //构建body
                         .add("items", items)
-                        .add("u_id", "1")
-                        .add("dev_id", "1")
+                        .add("u_id", String.valueOf(u_id))
+                        .add("dev_id", String.valueOf(dev_id))
                         .add("ques_class", String.valueOf(ques_class))
                         .add("ans_num", String.valueOf(ans_num))
                         .build();
@@ -201,6 +214,8 @@ public class MainPageActivity extends Activity implements View.OnClickListener {
     // 初始化控件和变量
     private void init() {
         //xml文件展示页面层的每一个控件都需要初始化
+        circle1 = (ImageView) findViewById(R.id.circle1);
+        circle2 = (ImageView) findViewById(R.id.circle2);
         ivShowPicture = (ImageView) findViewById(R.id.ivShowPicture);
         btnOpenHistory = (Button) findViewById(R.id.btnOpenHistory);
         btnOpenCamera = (Button) findViewById(R.id.btnOpenCamera);
@@ -211,7 +226,48 @@ public class MainPageActivity extends Activity implements View.OnClickListener {
         btnO_confirm = (Button) findViewById(R.id.btnO_confirm);
         StartView = (RelativeLayout) findViewById(R.id.StartView);
         OperateView = (RelativeLayout) findViewById(R.id.OperateView);
+        animation = AnimationUtils.loadAnimation(this,
+                R.anim.anim_set1);
+        animation.setRepeatMode(Animation.REVERSE);
+        animation.setRepeatCount(Animation.INFINITE);
+        circle1.startAnimation(animation);
+        animation = AnimationUtils.loadAnimation(this,R.anim.anim_set2);
+        animation.setRepeatMode(Animation.REVERSE);
+        animation.setRepeatCount(Animation.INFINITE);
+        circle2.startAnimation(animation);
+        tabLayout =(TabLayout) findViewById(R.id.user_info_tabs);
+                TabLayout.Tab tab0 = tabLayout.getTabAt(0);
+                TabLayout.Tab tab1 = tabLayout.getTabAt(1);
+                tab0.select();
+                tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        if (tab==tab1){
+                            startNewActivity(UserInfoActivity.class);
+                        }
+                    }
+
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
+
+                    }
+
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+
+                    }
+                });
+        SharedPreferences sharedPreferences = getSharedPreferences("userInfor", Context.MODE_PRIVATE);
+        int uid = sharedPreferences.getInt("u_id", 0); // 第二个参数是默认值
+        int devid = sharedPreferences.getInt("dev_id",0);
+        u_id=uid;
+        dev_id=devid;
     }
+
+    private void startNewActivity(Class<?> userInfoActivityClass) {
+        startActivity(new Intent(this, userInfoActivityClass));
+    }
+
     // 控件绑定点击事件
     private void bindClick() {
         btnOpenHistory.setOnClickListener(this);

@@ -1,47 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mainPage.MainPageActivity"
-    >
+    android:background="@color/white"
+    tools:context=".mainPage.MainPageActivity">
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/user_info_tabs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:tabIndicatorAnimationDuration="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tabMode="fixed">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/user_info_home"
+            android:text="首页" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/user_info_profile"
+            android:text="我的" />
+
+    </com.google.android.material.tabs.TabLayout>
     <RelativeLayout
         android:id="@+id/StartView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#0033FF"
+        android:background="@drawable/mainpage_background"
         >
+
+
+        <ImageView
+            android:id="@+id/circle1"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:background="@drawable/mainpage_circle1"
+            android:layout_centerInParent="true"
+            />
+
+        <ImageView
+            android:id="@+id/circle2"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:background="@drawable/mainpage_circle2"
+            android:layout_centerInParent="true"
+            />
+
         <Button
             android:id="@+id/btnOpenHistory"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
             android:layout_alignParentTop="true"
-            android:text="历史记录"
-            />
+            android:layout_alignParentRight="true"
+            android:background="@drawable/mainpage_history"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <Button
             android:id="@+id/btnOpenCamera"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_centerInParent="true"
-            android:background="@drawable/circle_button"
-            android:text="拍照搜题" />
+            android:background="@drawable/mainpage_camera" />
 
-        <Button
-            android:id="@+id/btnOpenAlbum"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_alignParentBottom="true"
-            android:text="相册"
-            android:textColor="#00BFFF"
-            />
     </RelativeLayout>
     <!--得到照片后跳转的页面-->
     <RelativeLayout
         android:id="@+id/OperateView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="gone"
+        >
         <ImageView
             android:id="@+id/ivShowPicture"
             android:layout_width="match_parent"
@@ -49,45 +86,60 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="80dp"
             android:layout_marginTop="80dp"
-            ></ImageView>
+            />
         <Button
             android:id="@+id/btnO_crop"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginRight="48dp"
             android:layout_alignParentTop="true"
-            android:text="裁剪"
-            android:textColor="#00BFFF"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/mainpage_crop"
             android:visibility="visible"
             /> <!--隐藏了按钮且不占用原来的空间-->
         <Button
-            android:id="@+id/btnO_confirm"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="80dp"
+            android:id="@+id/btnOpenAlbum"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
             android:layout_alignParentTop="true"
-            android:text="确认"
-            android:textColor="#00BFFF"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="48dp"
+            android:layout_marginLeft="48dp"
+            android:background="@drawable/mainpage_album" />
+        <Button
+            android:id="@+id/btnO_confirm"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:layout_marginBottom="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:background="@drawable/mainpage_confirm"
             android:visibility="visible"
             />
         <Button
             android:id="@+id/btnO_back"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="返回"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginRight="48dp"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
             android:layout_marginBottom="80dp"
+            android:background="@drawable/mainpage_backcamera"
             />
 
         <Button
             android:id="@+id/btnO_revolve"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginLeft="48dp"
+            android:layout_marginBottom="80dp"
             android:layout_alignParentBottom="true"
-            android:text="旋转"
-            android:textColor="#00BFFF"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/mainpage_revolve"
             android:visibility="visible"
             /> <!--隐藏了按钮且不占用原来的空间-->
     </RelativeLayout>
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
