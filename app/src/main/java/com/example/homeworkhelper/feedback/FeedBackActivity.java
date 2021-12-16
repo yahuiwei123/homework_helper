@@ -8,15 +8,20 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.homeworkhelper.R;
+import com.example.homeworkhelper.feedback.request.FeedbackRequestUtils;
+import com.google.android.material.textfield.TextInputEditText;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -29,18 +34,38 @@ import java.util.List;
 public class FeedBackActivity extends AppCompatActivity {
 
     private int maxSelectNum = 9;
-    private List<LocalMedia> selectList = new ArrayList<>();
+    private ArrayList<LocalMedia> selectList = new ArrayList<>();
     private GridImageAdapter adapter;
     private RecyclerView mRecyclerView;
     private PopupWindow pop;
+    private EditText feedbackText;
+    private TextInputEditText emailText;
+    private Button upload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler);
+        mRecyclerView = findViewById(R.id.recycler);
+        feedbackText = findViewById(R.id.feedback_text);
+        emailText = findViewById(R.id.emilText);
+        Toolbar feedbackToolBar = findViewById(R.id.feedback_toolbar);
+        upload = findViewById(R.id.upload);
+        upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //调用请求上传
+                FeedbackRequestUtils.postFeedback(FeedBackActivity.this, feedbackText.getText().toString(), emailText.getText().toString(), selectList);
+            }
+        });
 
+        feedbackToolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         initWidget();
     }
 
@@ -55,24 +80,14 @@ public class FeedBackActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position, View v) {
                 if (selectList.size() > 0) {
+//                    System.out.println(selectList.get(position).getPath());
                     LocalMedia media = selectList.get(position);
                     String pictureType = media.getMimeType();
-//                    int mediaType = PictureMimeType.pictureToVideo(pictureType);
-//                    switch (mediaType) {
-//                        case 1:
-//                            // 预览图片 可自定长按保存路径
-//                            //PictureSelector.create(MainActivity.this).externalPicturePreview(position, "/custom_file", selectList);
-////                            PictureSelector.create(MainActivity.this).externalPicturePreview(position, selectList);
-//                            break;
-//                        case 2:
-//                            // 预览视频
-//                            PictureSelector.create(MainActivity.this).externalPictureVideo(media.getPath());
-//                            break;
-//                        case 3:
-//                            // 预览音频
-//                            PictureSelector.create(MainActivity.this).externalPictureAudio(media.getPath());
-//                            break;
-//                    }
+                    PictureSelector.create(FeedBackActivity.this)
+                            .themeStyle(R.style.picture_default_style)
+                            .isNotPreviewDownload(true)
+                            .loadImageEngine(GlideEngine.createGlideEngine())
+                            .openExternalPreview(position, selectList);
                 }
             }
         });
@@ -82,48 +97,15 @@ public class FeedBackActivity extends AppCompatActivity {
 
         @Override
         public void onAddPicClick() {
-
-            //第一种方式，弹出选择和拍照的dialog
             showPop();
-
-            //第二种方式，直接进入相册，但是 是有拍照得按钮的
-            //参数很多，根据需要添加
-
-//            PictureSelector.create(MainActivity.this)
-//                    .openGallery(PictureMimeType.ofImage())// 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
-//                    .maxSelectNum(maxSelectNum)// 最大图片选择数量
-//                    .minSelectNum(1)// 最小选择数量
-//                    .imageSpanCount(4)// 每行显示个数
-//                    .selectionMode(PictureConfig.MULTIPLE)// 多选 or 单选PictureConfig.MULTIPLE : PictureConfig.SINGLE
-//                    .previewImage(true)// 是否可预览图片
-//                    .compressGrade(Luban.THIRD_GEAR)// luban压缩档次，默认3档 Luban.FIRST_GEAR、Luban.CUSTOM_GEAR
-//                    .isCamera(true)// 是否显示拍照按钮
-//                    .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
-//                    //.setOutputCameraPath("/CustomPath")// 自定义拍照保存路径
-//                    .enableCrop(true)// 是否裁剪
-//                    .compress(true)// 是否压缩
-//                    .compressMode(LUBAN_COMPRESS_MODE)//系统自带 or 鲁班压缩 PictureConfig.SYSTEM_COMPRESS_MODE or LUBAN_COMPRESS_MODE
-//                    //.sizeMultiplier(0.5f)// glide 加载图片大小 0~1之间 如设置 .glideOverride()无效
-//                    .glideOverride(160, 160)// glide 加载宽高，越小图片列表越流畅，但会影响列表图片浏览的清晰度
-//                    .withAspectRatio(1, 1)// 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
-//                    //.selectionMedia(selectList)// 是否传入已选图片
-//                    //.previewEggs(false)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中)
-//                    //.cropCompressQuality(90)// 裁剪压缩质量 默认100
-//                    //.compressMaxKB()//压缩最大值kb compressGrade()为Luban.CUSTOM_GEAR有效
-//                    //.compressWH() // 压缩宽高比 compressGrade()为Luban.CUSTOM_GEAR有效
-//                    //.cropWH()// 裁剪宽高比，设置如果大于图片本身宽高则无效
-//                    .rotateEnabled(false) // 裁剪是否可旋转图片
-//                    //.scaleEnabled()// 裁剪是否可放大缩小图片
-//                    //.recordVideoSecond()//录制视频秒数 默认60s
-//                    .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
         }
     };
 
     private void showPop() {
         View bottomView = View.inflate(FeedBackActivity.this, R.layout.layout_bottom_dialog, null);
-        TextView mAlbum = (TextView) bottomView.findViewById(R.id.tv_album);
-        TextView mCamera = (TextView) bottomView.findViewById(R.id.tv_camera);
-        TextView mCancel = (TextView) bottomView.findViewById(R.id.tv_cancel);
+        TextView mAlbum = bottomView.findViewById(R.id.tv_album);
+        TextView mCamera = bottomView.findViewById(R.id.tv_camera);
+        TextView mCancel = bottomView.findViewById(R.id.tv_cancel);
 
         pop = new PopupWindow(bottomView, -1, -2);
         pop.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -141,7 +123,7 @@ public class FeedBackActivity extends AppCompatActivity {
                 getWindow().setAttributes(lp);
             }
         });
-//        pop.setAnimationStyle(R.style.main_menu_photo_anim);
+        pop.setAnimationStyle(R.style.Animation_MaterialComponents_BottomSheetDialog);
         pop.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
 
         View.OnClickListener clickListener = new View.OnClickListener() {
@@ -155,18 +137,19 @@ public class FeedBackActivity extends AppCompatActivity {
                                 .maxSelectNum(maxSelectNum)
                                 .minSelectNum(1)
                                 .imageSpanCount(4)
+                                .isPreviewImage(true)
                                 .selectionMode(PictureConfig.MULTIPLE)
+                                .imageEngine(GlideEngine.createGlideEngine())
                                 .forResult(PictureConfig.CHOOSE_REQUEST);
                         break;
                     case R.id.tv_camera:
                         //拍照
                         PictureSelector.create(FeedBackActivity.this)
                                 .openCamera(PictureMimeType.ofImage())
+                                .imageEngine(GlideEngine.createGlideEngine())
                                 .forResult(PictureConfig.CHOOSE_REQUEST);
                         break;
                     case R.id.tv_cancel:
-                        //取消
-                        //closePopupWindow();
                         break;
                 }
                 closePopupWindow();
@@ -196,7 +179,6 @@ public class FeedBackActivity extends AppCompatActivity {
 
                     images = PictureSelector.obtainMultipleResult(data);
                     selectList.addAll(images);
-
 //                    selectList = PictureSelector.obtainMultipleResult(data);
                     // 例如 LocalMedia 里面返回三种path
                     // 1.media.getPath(); 为原图path

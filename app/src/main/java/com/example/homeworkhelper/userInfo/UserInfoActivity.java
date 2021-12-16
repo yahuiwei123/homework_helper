@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.homeworkhelper.R;
+import com.example.homeworkhelper.feedback.FeedBackActivity;
 import com.example.homeworkhelper.history.HistoryDisplayActivity;
 import com.example.homeworkhelper.mainPage.MainPageActivity;
 import com.example.homeworkhelper.userInfo.help.HelpActivity;
@@ -120,6 +121,9 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         btnOpenSetting = findViewById(R.id.btn_open_setting);
         btnOpenHelp = findViewById(R.id.btn_open_help);
 
+        Button btnOpenFeedback = findViewById(R.id.btn_open_feedback);
+        btnOpenFeedback.setOnClickListener(this);
+
         btnOpenHistory.setOnClickListener(this);
         btnOpenHelp.setOnClickListener(this);
         btnOpenSetting.setOnClickListener(this);
@@ -138,6 +142,8 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
             case R.id.btn_open_help:
                 startActivity(new Intent(this, HelpActivity.class));
                 break;
+            case R.id.btn_open_feedback:
+                startActivity(new Intent(this, FeedBackActivity.class));
         }
     }
 

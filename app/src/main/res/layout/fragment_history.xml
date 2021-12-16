@@ -16,8 +16,8 @@
         android:layout_height="match_parent"
         android:gravity="center">
         <TextView
-            android:layout_width="280dp"
-            android:layout_height="300dp"
+            android:layout_width="225dp"
+            android:layout_height="250dp"
             android:background="@drawable/none"
             android:visibility="visible" />
     </LinearLayout>

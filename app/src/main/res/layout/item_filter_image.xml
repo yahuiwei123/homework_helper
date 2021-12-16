@@ -15,7 +15,7 @@
             android:layout_marginTop="10dp"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
-            android:src="@color/color_f6"/>
+            android:src="@color/color_f6" />
 
         <LinearLayout
             android:id="@+id/ll_del"

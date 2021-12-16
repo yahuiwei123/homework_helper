@@ -1,20 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:id="@+id/activity_feedback"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:padding="16dp"
-              tools:context="com.example.homeworkhelper.feedback.FeedBackActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_feedback"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="com.example.homeworkhelper.feedback.FeedBackActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/feedback_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/toolbar"
+        app:navigationIcon="@drawable/outline_west_24"
+        >
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:text="反馈中心"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="185dp"
+        android:layout_margin="10dp"
+        android:fillViewport="true">
+
+        <EditText
+            android:id="@+id/feedback_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="left|top"
+            android:hint="请留下您宝贵的意见"
+            android:inputType="textMultiLine"
+            android:padding="4dp"
+            android:textSize="16.0sp" />
+    </ScrollView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="182dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="15dp"
+        android:hint="请输入邮箱"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emilText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_height="330dp"
         android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
-        android:overScrollMode="never"/>
+        android:overScrollMode="never" />
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right|bottom"
+        >
+        <Button
+            android:id="@+id/upload"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:background="@drawable/gradient_search_button"
+            android:text="提交"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
 
 </LinearLayout>
